@@ -1,15 +1,12 @@
-﻿namespace MoviesRating.Api.Entities
+﻿namespace MoviesRating.Api.DTO.Movies
 {
-    public class Movie
+    public class CreateMovieDto
     {
-        public Guid MovieId {  get; set; }
         public string Title { get; set; }
         public Guid GenreId { get; set; }
         public Guid DirectorId { get; set; }
         public int YearOfProduction { get; set; }
         public string Description { get; set; }
-
-        public Director Director { get; set; }
-        public Genre Genre { get; set; }
     }
 }
+

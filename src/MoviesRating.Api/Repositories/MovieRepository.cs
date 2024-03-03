@@ -41,6 +41,12 @@ namespace MoviesRating.Api.Repositories
                 .SingleOrDefaultAsync(x => x.MovieId == id);
         }
 
+        public async Task<Movie> GetMovieByTitleAndYearOfProductionAsync(string title, int yearOfProduction)
+        {
+            return await _dbContext.Movies.SingleOrDefaultAsync(x => x.Title == title && x.YearOfProduction == yearOfProduction);
+
+        }
+
         public async Task UpdateAsync(Movie movie)
         {
             _dbContext.Update(movie);

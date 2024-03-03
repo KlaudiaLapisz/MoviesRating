@@ -9,5 +9,6 @@ namespace MoviesRating.Api.Repositories
         Task UpdateAsync (Movie movie);
         Task AddAsync (Movie movie);
         Task DeleteAsync(Movie movie);
+        Task<Movie> GetMovieByTitleAndYearOfProductionAsync(string title, int yearOfProduction);
     }
 }
