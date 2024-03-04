@@ -9,5 +9,6 @@ namespace MoviesRating.Api.Repositories
         Task UpdateAsync(Director director);
         Task AddAsync(Director director);
         Task DeleteAsync(Director director);
+        Task<Director> GetDirectorByFirstNameAndLastName(string firstName, string lastName);
     }
 }

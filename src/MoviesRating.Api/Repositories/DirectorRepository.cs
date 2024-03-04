@@ -35,6 +35,11 @@ namespace MoviesRating.Api.Repositories
             return await _dbContext.Directors.Include(x => x.Movies).SingleOrDefaultAsync(x => x.DirectorId == id);
         }
 
+        public async Task<Director> GetDirectorByFirstNameAndLastName(string firstName, string lastName)
+        {
+            return await _dbContext.Directors.SingleOrDefaultAsync(x => x.FirstName == firstName && x.LastName == lastName);
+        }
+
         public async Task UpdateAsync(Director director)
         {
             _dbContext.Update(director);
