@@ -9,5 +9,6 @@ namespace MoviesRating.Api.Repositories
         Task UpdateAsync(Genre genre);
         Task AddAsync(Genre genre);
         Task DeleteAsync(Genre genre);
+        Task<Genre> GetGenreByName(string name);
     }
 }

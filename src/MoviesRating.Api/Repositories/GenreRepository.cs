@@ -35,6 +35,11 @@ namespace MoviesRating.Api.Repositories
             return await _dbContext.Genres.Include(x => x.Movies).SingleOrDefaultAsync(x => x.GenreId == id);
         }
 
+        public async Task<Genre> GetGenreByName(string name)
+        {
+            return await _dbContext.Genres.SingleOrDefaultAsync(x=> x.Name == name);
+        }
+
         public async Task UpdateAsync(Genre genre)
         {
             _dbContext.Update(genre);
