@@ -6,7 +6,7 @@ namespace MoviesRating.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class DirectorsController : ControllerBase
+    public class DirectorsController:ControllerBase
     {
         private readonly IDirectorService _directorService;
 
@@ -26,7 +26,7 @@ namespace MoviesRating.Api.Controllers
         public async Task<ActionResult<DirectorDto>> Get(Guid id)
         {
             var result = await _directorService.GetAsync(id);
-            if (result == null)
+            if (result==null)
             {
                 return NotFound();
             }
@@ -37,7 +37,7 @@ namespace MoviesRating.Api.Controllers
         public async Task<ActionResult> Post(CreateDirectorDto createDirectorDto)
         {
             var id = await _directorService.CreateAsync(createDirectorDto);
-            if (id == null)
+            if (id==null)
             {
                 return BadRequest();
             }
