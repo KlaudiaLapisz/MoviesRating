@@ -2,7 +2,6 @@
 {
     public class CreateGenreDto
     {
-        public Guid GenreId { get; set; }
-        public string Name { get; set; }
+       public string Name { get; set; }
     }
 }

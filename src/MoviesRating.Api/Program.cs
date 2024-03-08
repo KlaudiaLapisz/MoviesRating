@@ -4,7 +4,7 @@ using MoviesRating.Api.Repositories;
 using MoviesRating.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration["sqllServer:connectionString"];
+var connectionString = builder.Configuration["sqlServer:connectionString"];
 builder.Services.AddDbContext<MoviesRatingDbContext>(x => x.UseSqlServer(connectionString));
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IDirectorRepository, DirectorRepository>();

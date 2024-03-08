@@ -1,4 +1,5 @@
 ﻿using MoviesRating.Api.DTO.Genres;
+using MoviesRating.Api.Entities;
 using MoviesRating.Api.Repositories;
 
 namespace MoviesRating.Api.Services
@@ -20,12 +21,12 @@ namespace MoviesRating.Api.Services
                 return null;
             }
 
-            var genre = new GenreDto
+            var genre = new Genre
             {
                 GenreId = Guid.NewGuid(),
                 Name = createGenreDto.Name
             };
-            await _genreRepository.AddAsync(existingGenre);
+            await _genreRepository.AddAsync(genre);
             return genre.GenreId;
         }
 

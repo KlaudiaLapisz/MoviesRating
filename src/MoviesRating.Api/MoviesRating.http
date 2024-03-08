@@ -1,5 +1,32 @@
 @url = http://localhost:5000
+@genreId=57997c5e-e4e1-4d36-9a9e-9ed0553be80a
 
 ###
-GET {{url}}
+GET {{url}}/genres
+Accept: application/json
+
+###
+GET {{url}}/genres/{{genreId}}
+Accept: application/json
+
+###
+POST {{url}}/genres
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "horror"
+}
+
+###
+PUT {{url}}/genres/{{genreId}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "thriller"
+}
+
+###
+DELETE {{url}}/genres/{{genreId}}
 Accept: application/json
