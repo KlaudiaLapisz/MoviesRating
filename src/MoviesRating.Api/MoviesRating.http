@@ -1,5 +1,6 @@
 @url = http://localhost:5000
 @genreId=57997c5e-e4e1-4d36-9a9e-9ed0553be80a
+@directorId=5ea1bfb5-2936-4429-ad74-02c9665cb4ef
 
 ###
 GET {{url}}/genres
@@ -29,4 +30,36 @@ Content-Type: application/json
 
 ###
 DELETE {{url}}/genres/{{genreId}}
+Accept: application/json
+
+###
+GET {{url}}/directors
+Accept: application/json
+
+###
+GET {{url}}/directors/{{directorId}}
+Accept: application/json
+
+###
+POST {{url}}/directors
+Accept: application/json
+Content-Type: application/json
+
+{
+  "firstname": "Andrzej",
+  "lastname": "Wajda"
+}
+
+###
+PUT {{url}}/directors/{{directorId}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "firstname": "Agnieszka",
+  "lastname": "Holland"
+}
+
+###
+DELETE {{url}}/directors/{{directorId}}
 Accept: application/json
