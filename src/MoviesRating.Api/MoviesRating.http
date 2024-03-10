@@ -1,6 +1,7 @@
 @url = http://localhost:5000
-@genreId=57997c5e-e4e1-4d36-9a9e-9ed0553be80a
-@directorId=5ea1bfb5-2936-4429-ad74-02c9665cb4ef
+@genreId=56c49023-b28d-4d1b-adbf-b40b635553bc
+@directorId=ec172fae-7eee-458e-bc4b-da6c1ec1f0c2
+@movieId=37e0ce2a-64e4-42a8-b8b9-2763dd6a1bf3
 
 ###
 GET {{url}}/genres
@@ -46,8 +47,8 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "firstname": "Andrzej",
-  "lastname": "Wajda"
+  "firstname": "James",
+  "lastname": "Wan"
 }
 
 ###
@@ -62,4 +63,42 @@ Content-Type: application/json
 
 ###
 DELETE {{url}}/directors/{{directorId}}
+Accept: application/json
+
+###
+GET {{url}}/movies
+Accept: application/json
+
+###
+GET {{url}}/movies/{{movieId}}
+Accept: application/json
+
+###
+POST {{url}}/movies
+Accept: application/json
+Content-Type: application/json
+
+{
+  "title": "The Cojuring",
+  "yearofproduction": "2013",
+  "description": "The Conjuring is a 2013 supernatural horror film inspired by the true-life story of the Perron family, who claimed they 'lived among the dead' in the 1970s as spirits both friendly and sinister inhabited their Rhode Island farmhouse.",
+  "genreId": "56c49023-b28d-4d1b-adbf-b40b635553bc",
+  "directorId": "ec172fae-7eee-458e-bc4b-da6c1ec1f0c2"
+}
+
+###
+PUT {{url}}/movies/{{movieId}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "title": "The Conjuring",
+  "yearofproduction": "2013",
+  "description": "The Conjuring is a 2013 supernatural horror film inspired by the true-life story of the Perron family, who claimed they 'lived among the dead' in the 1970s as spirits both friendly and sinister inhabited their Rhode Island farmhouse.",
+  "genreId": "56c49023-b28d-4d1b-adbf-b40b635553bc",
+  "directorId": "ec172fae-7eee-458e-bc4b-da6c1ec1f0c2"
+}
+
+###
+DELETE {{url}}/movies/{{movieId}}
 Accept: application/json
