@@ -1,6 +1,6 @@
 ﻿using MoviesRating.Api.DTO.Movies;
-using MoviesRating.Api.Entities;
-using MoviesRating.Api.Repositories;
+using MoviesRating.Domain.Entities;
+using MoviesRating.Domain.Repositories;
 
 namespace MoviesRating.Api.Services
 {

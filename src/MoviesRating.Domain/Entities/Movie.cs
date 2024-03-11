@@ -1,8 +1,8 @@
-﻿namespace MoviesRating.Api.Entities
+﻿namespace MoviesRating.Domain.Entities
 {
     public class Movie
     {
-        public Guid MovieId {  get; set; }
+        public Guid MovieId { get; set; }
         public string Title { get; set; }
         public Guid GenreId { get; set; }
         public Guid DirectorId { get; set; }

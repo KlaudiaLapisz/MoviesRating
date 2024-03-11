@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MoviesRating.Api.DAL;
-using MoviesRating.Api.Entities;
+using MoviesRating.Domain.Entities;
+using MoviesRating.Domain.Repositories;
 
 namespace MoviesRating.Api.Repositories
 {

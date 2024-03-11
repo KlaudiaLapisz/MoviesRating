@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MoviesRating.Api.Entities;
+using MoviesRating.Domain.Entities;
 
 namespace MoviesRating.Api.DAL.Configurations
 {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MoviesRating.Api.Entities;
+using MoviesRating.Domain.Entities;
 
 namespace MoviesRating.Api.DAL
 {

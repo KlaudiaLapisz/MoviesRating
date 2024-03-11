@@ -1,6 +1,6 @@
-﻿using MoviesRating.Api.Entities;
+﻿using MoviesRating.Domain.Entities;
 
-namespace MoviesRating.Api.Repositories
+namespace MoviesRating.Domain.Repositories
 {
     public interface IGenreRepository
     {
