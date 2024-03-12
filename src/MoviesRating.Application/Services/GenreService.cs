@@ -1,10 +1,10 @@
-﻿using MoviesRating.Api.DTO.Genres;
+﻿using MoviesRating.Application.DTO.Genres;
 using MoviesRating.Domain.Entities;
 using MoviesRating.Domain.Repositories;
 
-namespace MoviesRating.Api.Services
+namespace MoviesRating.Application.Services
 {
-    public class GenreService : IGenreService
+    internal class GenreService : IGenreService
     {
         private readonly IGenreRepository _genreRepository;
 
@@ -16,7 +16,7 @@ namespace MoviesRating.Api.Services
         public async Task<Guid?> CreateAsync(CreateGenreDto createGenreDto)
         {
             var existingGenre = await _genreRepository.GetGenreByName(createGenreDto.Name);
-            if(existingGenre != null) 
+            if (existingGenre != null)
             {
                 return null;
             }
@@ -33,7 +33,7 @@ namespace MoviesRating.Api.Services
         public async Task<bool> DeleteAsync(DeleteGenreDto deleteGenreDto)
         {
             var deleteGenre = await _genreRepository.GetAsync(deleteGenreDto.GenreId);
-            if(deleteGenre == null) 
+            if (deleteGenre == null)
             {
                 return false;
             }
@@ -43,7 +43,7 @@ namespace MoviesRating.Api.Services
 
         public async Task<IEnumerable<GenreDto>> GetAllAsync()
         {
-            var genres=await _genreRepository.GetAllAsync();
+            var genres = await _genreRepository.GetAllAsync();
             return genres.Select(g => new GenreDto
             {
                 GenreId = g.GenreId,
@@ -74,7 +74,7 @@ namespace MoviesRating.Api.Services
             {
                 return false;
             }
-            genre.Name= updateGenreDto.Name;
+            genre.Name = updateGenreDto.Name;
 
             await _genreRepository.UpdateAsync(genre);
             return true;

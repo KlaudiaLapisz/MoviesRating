@@ -1,10 +1,10 @@
-﻿using MoviesRating.Api.DTO.Movies;
+﻿using MoviesRating.Application.DTO.Movies;
 using MoviesRating.Domain.Entities;
 using MoviesRating.Domain.Repositories;
 
-namespace MoviesRating.Api.Services
+namespace MoviesRating.Application.Services
 {
-    public class MovieService : IMovieService
+    internal class MovieService : IMovieService
     {
         private readonly IMovieRepository _movieRepository;
         private readonly IDirectorRepository _directorRepository;

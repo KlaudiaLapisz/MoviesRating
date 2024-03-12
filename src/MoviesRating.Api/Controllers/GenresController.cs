@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MoviesRating.Api.DTO.Genres;
-using MoviesRating.Api.Services;
+using MoviesRating.Application.DTO.Genres;
+using MoviesRating.Application.Services;
 
 namespace MoviesRating.Api.Controllers
 {

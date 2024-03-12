@@ -1,4 +1,4 @@
-﻿namespace MoviesRating.Api.DTO.Directors
+﻿namespace MoviesRating.Application.DTO.Directors
 {
     public class DeleteDirectorDto
     {

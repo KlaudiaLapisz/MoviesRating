@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MoviesRating.Api.DAL;
 using MoviesRating.Api.Repositories;
-using MoviesRating.Api.Services;
+using MoviesRating.Application;
 using MoviesRating.Domain;
 using MoviesRating.Domain.Repositories;
 
@@ -11,10 +11,8 @@ builder.Services.AddDbContext<MoviesRatingDbContext>(x => x.UseSqlServer(connect
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IDirectorRepository, DirectorRepository>();
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
-builder.Services.AddScoped<IMovieService, MovieService>();
-builder.Services.AddScoped<IDirectorService, DirectorService>();
-builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddDomain();
+builder.Services.AddApplication();
 builder.Services.AddControllers();
 
 var app = builder.Build();

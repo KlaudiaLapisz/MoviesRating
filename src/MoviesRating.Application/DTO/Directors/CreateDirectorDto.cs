@@ -1,6 +1,6 @@
-﻿namespace MoviesRating.Api.DTO.Movies
+﻿namespace MoviesRating.Application.DTO.Directors
 {
-    public class MovieDirectorDto
+    public class CreateDirectorDto
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

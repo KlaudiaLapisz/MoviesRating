@@ -1,6 +1,6 @@
-﻿using MoviesRating.Api.DTO.Genres;
+﻿using MoviesRating.Application.DTO.Genres;
 
-namespace MoviesRating.Api.Services
+namespace MoviesRating.Application.Services
 {
     public interface IGenreService
     {

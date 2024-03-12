@@ -1,4 +1,4 @@
-﻿namespace MoviesRating.Api.DTO.Movies
+﻿namespace MoviesRating.Application.DTO.Movies
 {
     public class MovieGenreDto
     {

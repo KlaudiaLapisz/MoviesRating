@@ -1,4 +1,4 @@
-﻿namespace MoviesRating.Api.DTO.Genres
+﻿namespace MoviesRating.Application.DTO.Genres
 {
     public class DeleteGenreDto
     {

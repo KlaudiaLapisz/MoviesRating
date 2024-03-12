@@ -1,10 +1,10 @@
-﻿using MoviesRating.Api.DTO.Directors;
+﻿using MoviesRating.Application.DTO.Directors;
 using MoviesRating.Domain.Entities;
 using MoviesRating.Domain.Repositories;
 
-namespace MoviesRating.Api.Services
+namespace MoviesRating.Application.Services
 {
-    public class DirectorService : IDirectorService
+    internal class DirectorService : IDirectorService
     {
         private readonly IDirectorRepository _directorRepository;
 
@@ -16,7 +16,7 @@ namespace MoviesRating.Api.Services
         public async Task<Guid?> CreateAsync(CreateDirectorDto createDirectorDto)
         {
             var existingDirector = await _directorRepository.GetDirectorByFirstNameAndLastName(createDirectorDto.FirstName, createDirectorDto.LastName);
-            if(existingDirector != null) 
+            if (existingDirector != null)
             {
                 return null;
             }
@@ -33,8 +33,8 @@ namespace MoviesRating.Api.Services
 
         public async Task<bool> DeleteAsync(DeleteDirectorDto deleteDirectorDto)
         {
-            var deleteDirector=await _directorRepository.GetAsync(deleteDirectorDto.DirectorId);
-            if(deleteDirector == null)
+            var deleteDirector = await _directorRepository.GetAsync(deleteDirectorDto.DirectorId);
+            if (deleteDirector == null)
             {
                 return false;
             }
@@ -47,9 +47,9 @@ namespace MoviesRating.Api.Services
             var directors = await _directorRepository.GetAllAsync();
             return directors.Select(d => new DirectorDto
             {
-                DirectorId=d.DirectorId,
-                FirstName=d.FirstName,
-                LastName=d.LastName
+                DirectorId = d.DirectorId,
+                FirstName = d.FirstName,
+                LastName = d.LastName
             });
         }
 
@@ -67,7 +67,7 @@ namespace MoviesRating.Api.Services
         public async Task<bool> UpdateAsync(UpdateDirectorDto updateDirectorDto)
         {
             var director = await _directorRepository.GetAsync(updateDirectorDto.DirectorId);
-            if(director==null)
+            if (director == null)
             {
                 return false;
             }
@@ -78,8 +78,8 @@ namespace MoviesRating.Api.Services
                 return false;
             }
 
-            director.FirstName= updateDirectorDto.FirstName;
-            director.LastName= updateDirectorDto.LastName;
+            director.FirstName = updateDirectorDto.FirstName;
+            director.LastName = updateDirectorDto.LastName;
 
             await _directorRepository.UpdateAsync(director);
             return true;
