@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MoviesRating.Api.DAL;
+using MoviesRating.Infrastructure.DAL;
 
 #nullable disable
 
-namespace MoviesRating.Api.Migrations
+namespace MoviesRating.Infrastructure.Migrations
 {
     [DbContext(typeof(MoviesRatingDbContext))]
     [Migration("20240308123745_InitialCreate")]

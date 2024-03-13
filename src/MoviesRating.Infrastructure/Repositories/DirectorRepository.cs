@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MoviesRating.Api.DAL;
 using MoviesRating.Domain.Entities;
 using MoviesRating.Domain.Repositories;
+using MoviesRating.Infrastructure.DAL;
 
-namespace MoviesRating.Api.Repositories
+namespace MoviesRating.Infrastructure.Repositories
 {
-    public class DirectorRepository : IDirectorRepository
+    internal class DirectorRepository : IDirectorRepository
     {
         private readonly MoviesRatingDbContext _dbContext;
 

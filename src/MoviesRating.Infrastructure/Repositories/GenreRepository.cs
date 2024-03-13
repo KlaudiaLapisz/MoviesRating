@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MoviesRating.Api.DAL;
 using MoviesRating.Domain.Entities;
 using MoviesRating.Domain.Repositories;
+using MoviesRating.Infrastructure.DAL;
 
-namespace MoviesRating.Api.Repositories
+namespace MoviesRating.Infrastructure.Repositories
 {
-    public class GenreRepository : IGenreRepository
+    internal class GenreRepository : IGenreRepository
     {
         private readonly MoviesRatingDbContext _dbContext;
 
@@ -38,7 +38,7 @@ namespace MoviesRating.Api.Repositories
 
         public async Task<Genre> GetGenreByName(string name)
         {
-            return await _dbContext.Genres.SingleOrDefaultAsync(x=> x.Name == name);
+            return await _dbContext.Genres.SingleOrDefaultAsync(x => x.Name == name);
         }
 
         public async Task UpdateAsync(Genre genre)

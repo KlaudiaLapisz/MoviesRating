@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MoviesRating.Domain.Entities;
 
-namespace MoviesRating.Api.DAL.Configurations
+namespace MoviesRating.Infrastructure.DAL.Configurations
 {
-    public class GenreConfiguration : IEntityTypeConfiguration<Genre>
+    internal class GenreConfiguration : IEntityTypeConfiguration<Genre>
     {
         public void Configure(EntityTypeBuilder<Genre> builder)
         {

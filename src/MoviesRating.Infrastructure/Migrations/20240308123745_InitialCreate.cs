@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace MoviesRating.Api.Migrations
+namespace MoviesRating.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration

@@ -1,15 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MoviesRating.Domain.Entities;
 
-namespace MoviesRating.Api.DAL
+namespace MoviesRating.Infrastructure.DAL
 {
-    public class MoviesRatingDbContext:DbContext
+    internal class MoviesRatingDbContext : DbContext
     {
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Director> Directors { get; set; }
 
-        public MoviesRatingDbContext(DbContextOptions<MoviesRatingDbContext> options) : base(options) 
+        public MoviesRatingDbContext(DbContextOptions<MoviesRatingDbContext> options) : base(options)
         {
 
         }
