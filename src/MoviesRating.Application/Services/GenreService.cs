@@ -21,11 +21,7 @@ namespace MoviesRating.Application.Services
                 return null;
             }
 
-            var genre = new Genre
-            {
-                GenreId = Guid.NewGuid(),
-                Name = createGenreDto.Name
-            };
+            var genre = new Genre(Guid.NewGuid(), createGenreDto.Name);
             await _genreRepository.AddAsync(genre);
             return genre.GenreId;
         }
@@ -74,7 +70,7 @@ namespace MoviesRating.Application.Services
             {
                 return false;
             }
-            genre.Name = updateGenreDto.Name;
+            genre.ChangeName(updateGenreDto.Name);
 
             await _genreRepository.UpdateAsync(genre);
             return true;

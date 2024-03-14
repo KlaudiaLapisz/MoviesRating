@@ -21,12 +21,7 @@ namespace MoviesRating.Application.Services
                 return null;
             }
 
-            var director = new Director
-            {
-                DirectorId = Guid.NewGuid(),
-                FirstName = createDirectorDto.FirstName,
-                LastName = createDirectorDto.LastName
-            };
+            var director = new Director(Guid.NewGuid(), createDirectorDto.FirstName, createDirectorDto.LastName);
             await _directorRepository.AddAsync(director);
             return director.DirectorId;
         }
@@ -78,9 +73,9 @@ namespace MoviesRating.Application.Services
                 return false;
             }
 
-            director.FirstName = updateDirectorDto.FirstName;
-            director.LastName = updateDirectorDto.LastName;
-
+            director.ChangeFirstName(updateDirectorDto.FirstName);
+            director.ChangeLastName(updateDirectorDto.LastName);
+            
             await _directorRepository.UpdateAsync(director);
             return true;
         }
