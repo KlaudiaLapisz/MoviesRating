@@ -37,17 +37,7 @@ namespace MoviesRating.Application.Services
                 return null;
             }
 
-            var movie = new Movie
-            {
-                MovieId = Guid.NewGuid(),
-                DirectorId = createMovieDto.DirectorId,
-                GenreId = createMovieDto.GenreId,
-                Title = createMovieDto.Title,
-                Description = createMovieDto.Description,
-                YearOfProduction = createMovieDto.YearOfProduction
-
-            };
-
+            var movie = new Movie(Guid.NewGuid(), createMovieDto.Title, createMovieDto.YearOfProduction, createMovieDto.Description, director, genre);
             await _movieRepository.AddAsync(movie);
             return movie.MovieId;
         }
@@ -132,11 +122,11 @@ namespace MoviesRating.Application.Services
                 return false;
             }
 
-            movie.Title = updateMovieDto.Title;
-            movie.YearOfProduction = updateMovieDto.YearOfProduction;
-            movie.Description = updateMovieDto.Description;
-            movie.DirectorId = updateMovieDto.DirectorId;
-            movie.GenreId = updateMovieDto.GenreId;
+            movie.ChangeTitle(updateMovieDto.Title);
+            movie.ChangeDescription(updateMovieDto.Description);
+            movie.ChangeYearOfProduction(updateMovieDto.YearOfProduction);
+            movie.ChangeDirector(director);
+            movie.ChangeGenre(genre);
 
             await _movieRepository.UpdateAsync(movie);
             return true;
