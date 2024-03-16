@@ -23,33 +23,14 @@
             {
                 throw new ArgumentException("Empty movieId");
             }
-            if (string.IsNullOrEmpty(title))
-            {
-                throw new ArgumentException("Title is empty");
-            }
-            if (yearOfProduction < 1900)
-            {
-                throw new ArgumentException("Incorrect year of production");
-            }
-            if (string.IsNullOrEmpty(description))
-            {
-                throw new ArgumentException("Description is empty");
-            }
-            if (director == null)
-            {
-                throw new ArgumentException("Director does not exist");
-            }
-            if (genre == null)
-            {
-                throw new ArgumentException("Genre does not exist");
-            }
 
             MovieId = movieId;
-            Title = title;
-            YearOfProduction = yearOfProduction;
-            Description = description;
-            Director = director;
-            Genre = genre;
+
+            ChangeTitle(title);
+            ChangeYearOfProduction(yearOfProduction);
+            ChangeDescription(description);
+            ChangeDirector(director);
+            ChangeGenre(genre);                   
         }
 
         public void ChangeTitle(string title)
@@ -57,6 +38,11 @@
             if (string.IsNullOrEmpty(title))
             {
                 throw new ArgumentException("Title is empty");
+            }
+
+            if (title.Length > 50)
+            {
+                throw new ArgumentException("Title is too long");
             }
 
             Title = title;
@@ -78,6 +64,10 @@
             {
                 throw new ArgumentException("Description is empty");
             }
+            if (description.Length > 1000)
+            {
+                throw new ArgumentException("Description is too long");
+            }
 
             Description = description;
         }
@@ -96,6 +86,7 @@
             {
                 throw new ArgumentException("Genre does not exist");
             }
+
             Genre = genre;
         }
     }

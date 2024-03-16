@@ -19,6 +19,13 @@
                 throw new ArgumentException("Empty genreId");
             }
 
+            GenreId = genreId;
+
+            ChangeName(name);
+        }
+
+        public void ChangeName(string name)
+        {
             if (string.IsNullOrEmpty(name))
             {
                 throw new ArgumentException("Empty genre name");
@@ -27,17 +34,6 @@
             if (name.Length > 50)
             {
                 throw new ArgumentException("Max genre name length exceeded");
-            }
-
-            GenreId = genreId;
-            Name = name;
-        }
-
-        public void ChangeName(string name)
-        {
-            if (string.IsNullOrEmpty(name))
-            {
-                throw new ArgumentException("Empty genre name");
             }
 
             Name = name;

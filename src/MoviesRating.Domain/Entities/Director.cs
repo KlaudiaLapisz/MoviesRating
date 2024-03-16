@@ -3,7 +3,6 @@
     public class Director
     {
         public Guid DirectorId { get; }
-
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
 
@@ -20,30 +19,10 @@
             {
                 throw new ArgumentException("Empty directorId");
             }
-
-            if (string.IsNullOrEmpty(firstName))
-            {
-                throw new ArgumentException("Empty directors first name");
-            }
-
-            if (string.IsNullOrEmpty(lastName))
-            {
-                throw new ArgumentException("Empty directors lasst name");
-            }
-
-            if (firstName.Length > 20)
-            {
-                throw new ArgumentException("Max first name length exceeded");
-            }
-
-            if (lastName.Length > 30)
-            {
-                throw new ArgumentException("Max last name length exceeded");
-            }
-
             DirectorId = directorId;
-            FirstName = firstName;
-            LastName = lastName;
+
+            ChangeFirstName(firstName);
+            ChangeLastName(lastName);
         }
 
         public void ChangeFirstName(string firstName)
@@ -52,6 +31,12 @@
             {
                 throw new ArgumentException("Empty first name");
             }
+
+            if (firstName.Length > 20)
+            {
+                throw new ArgumentException("Max first name length exceeded");
+            }
+
             FirstName = firstName;
         }
 
@@ -61,7 +46,14 @@
             {
                 throw new ArgumentException("Empty last name");
             }
+
+            if (lastName.Length > 30)
+            {
+                throw new ArgumentException("Max last name length exceeded");
+            }
+
             LastName = lastName;
         }
+
     }
 }
