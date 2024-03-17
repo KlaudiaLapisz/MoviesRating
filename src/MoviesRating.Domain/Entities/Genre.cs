@@ -1,4 +1,6 @@
-﻿namespace MoviesRating.Domain.Entities
+﻿using MoviesRating.Domain.Exceptions;
+
+namespace MoviesRating.Domain.Entities
 {
     public class Genre
     {
@@ -16,7 +18,7 @@
         {
             if (genreId == Guid.Empty)
             {
-                throw new ArgumentException("Empty genreId");
+                throw new EmptyGenreIdException();
             }
 
             GenreId = genreId;
@@ -28,12 +30,12 @@
         {
             if (string.IsNullOrEmpty(name))
             {
-                throw new ArgumentException("Empty genre name");
+                throw new EmptyGenreNameException();
             }
 
             if (name.Length > 50)
             {
-                throw new ArgumentException("Max genre name length exceeded");
+                throw new GenreNameLengthExceededException();
             }
 
             Name = name;

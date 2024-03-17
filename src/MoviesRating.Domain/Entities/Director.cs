@@ -1,4 +1,6 @@
-﻿namespace MoviesRating.Domain.Entities
+﻿using MoviesRating.Domain.Exceptions;
+
+namespace MoviesRating.Domain.Entities
 {
     public class Director
     {
@@ -17,7 +19,7 @@
         {
             if (directorId == Guid.Empty)
             {
-                throw new ArgumentException("Empty directorId");
+                throw new EmptyDirectorIdException();
             }
             DirectorId = directorId;
 
@@ -29,12 +31,12 @@
         {
             if (string.IsNullOrEmpty(firstName))
             {
-                throw new ArgumentException("Empty first name");
+                throw new EmptyDirectorFirstNameException();
             }
 
             if (firstName.Length > 20)
             {
-                throw new ArgumentException("Max first name length exceeded");
+                throw new DirectorFirstNameLengthExceededException();
             }
 
             FirstName = firstName;
@@ -44,12 +46,12 @@
         {
             if (string.IsNullOrEmpty(lastName))
             {
-                throw new ArgumentException("Empty last name");
+                throw new EmptyDirectorLastNameException();
             }
 
             if (lastName.Length > 30)
             {
-                throw new ArgumentException("Max last name length exceeded");
+                throw new DirectorLastNameLengthExceededException();
             }
 
             LastName = lastName;
