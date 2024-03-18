@@ -1,4 +1,6 @@
-﻿namespace MoviesRating.Domain.Entities
+﻿using MoviesRating.Domain.Exceptions;
+
+namespace MoviesRating.Domain.Entities
 {
     public class Movie
     {
@@ -21,7 +23,7 @@
         {
             if (movieId == Guid.Empty)
             {
-                throw new ArgumentException("Empty movieId");
+                throw new EmptyMovieIdException();
             }
 
             MovieId = movieId;
@@ -37,12 +39,12 @@
         {
             if (string.IsNullOrEmpty(title))
             {
-                throw new ArgumentException("Title is empty");
+                throw new EmptyMovieTitleException();
             }
 
             if (title.Length > 50)
             {
-                throw new ArgumentException("Title is too long");
+                throw new MovieTitleLengthExceededException();
             }
 
             Title = title;
@@ -52,7 +54,7 @@
         {
             if (yearOfProduction < 1900)
             {
-                throw new ArgumentException("Incorrect year of production");
+                throw new IncorrectYearOfProductionException();
             }
 
             YearOfProduction = yearOfProduction;
@@ -62,11 +64,11 @@
         {
             if (string.IsNullOrEmpty(description))
             {
-                throw new ArgumentException("Description is empty");
+                throw new EmptyMovieDescriptionException();
             }
             if (description.Length > 1000)
             {
-                throw new ArgumentException("Description is too long");
+                throw new MovieDescriptionLengthExceededException();
             }
 
             Description = description;
@@ -75,7 +77,7 @@
         {
             if (director == null)
             {
-                throw new ArgumentException("Director does not exist");
+                throw new EmptyMovieDirectorException();
             }
 
             Director = director;
@@ -84,7 +86,7 @@
         {
             if (genre == null)
             {
-                throw new ArgumentException("Genre does not exist");
+                throw new EmptyMovieGenreException();
             }
 
             Genre = genre;
