@@ -48,11 +48,8 @@ namespace MoviesRating.Api.Controllers
         public async Task<ActionResult> Put(Guid id, UpdateDirectorDto updateDirectorDto)
         {
             updateDirectorDto.DirectorId = id;
-            var result = await _directorService.UpdateAsync(updateDirectorDto);
-            if (!result)
-            {
-                return BadRequest();
-            }
+            await _directorService.UpdateAsync(updateDirectorDto);
+           
             return NoContent();
         }
 
@@ -60,11 +57,8 @@ namespace MoviesRating.Api.Controllers
         public async Task<ActionResult> Delete(Guid id)
         {
             var deleteDirectorDto = new DeleteDirectorDto { DirectorId = id };
-            var result = await _directorService.DeleteAsync(deleteDirectorDto);
-            if (!result)
-            {
-                return BadRequest();
-            }
+            await _directorService.DeleteAsync(deleteDirectorDto);
+           
             return NoContent();
         }
     }

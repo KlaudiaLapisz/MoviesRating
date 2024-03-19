@@ -1,4 +1,5 @@
 ﻿using MoviesRating.Application.DTO.Genres;
+using MoviesRating.Application.Exceptions;
 using MoviesRating.Domain.Entities;
 using MoviesRating.Domain.Repositories;
 
@@ -13,12 +14,12 @@ namespace MoviesRating.Application.Services
             _genreRepository = genreRepository;
         }
 
-        public async Task<Guid?> CreateAsync(CreateGenreDto createGenreDto)
+        public async Task<Guid> CreateAsync(CreateGenreDto createGenreDto)
         {
             var existingGenre = await _genreRepository.GetGenreByName(createGenreDto.Name);
             if (existingGenre != null)
             {
-                return null;
+                throw new GenreExistException();
             }
 
             var genre = new Genre(Guid.NewGuid(), createGenreDto.Name);
@@ -26,15 +27,14 @@ namespace MoviesRating.Application.Services
             return genre.GenreId;
         }
 
-        public async Task<bool> DeleteAsync(DeleteGenreDto deleteGenreDto)
+        public async Task DeleteAsync(DeleteGenreDto deleteGenreDto)
         {
             var deleteGenre = await _genreRepository.GetAsync(deleteGenreDto.GenreId);
             if (deleteGenre == null)
             {
-                return false;
+                throw new GenreDoesNotExistException();
             }
             await _genreRepository.DeleteAsync(deleteGenre);
-            return true;
         }
 
         public async Task<IEnumerable<GenreDto>> GetAllAsync()
@@ -57,23 +57,22 @@ namespace MoviesRating.Application.Services
             };
         }
 
-        public async Task<bool> UpdateAsync(UpdateGenreDto updateGenreDto)
+        public async Task UpdateAsync(UpdateGenreDto updateGenreDto)
         {
             var genre = await _genreRepository.GetAsync(updateGenreDto.GenreId);
             if (genre == null)
             {
-                return false;
+               throw new GenreDoesNotExistException();
             }
 
             var existingGenre = await _genreRepository.GetGenreByName(updateGenreDto.Name);
             if (existingGenre != null)
             {
-                return false;
+                throw new GenreDoesNotExistException();
             }
             genre.ChangeName(updateGenreDto.Name);
 
             await _genreRepository.UpdateAsync(genre);
-            return true;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MoviesRating.Application.DTO.Directors;
+using MoviesRating.Application.Exceptions;
 using MoviesRating.Domain.Entities;
 using MoviesRating.Domain.Repositories;
 
@@ -13,12 +14,12 @@ namespace MoviesRating.Application.Services
             _directorRepository = directorRepository;
         }
 
-        public async Task<Guid?> CreateAsync(CreateDirectorDto createDirectorDto)
+        public async Task<Guid> CreateAsync(CreateDirectorDto createDirectorDto)
         {
             var existingDirector = await _directorRepository.GetDirectorByFirstNameAndLastName(createDirectorDto.FirstName, createDirectorDto.LastName);
             if (existingDirector != null)
             {
-                return null;
+                throw new DirectorExistException();
             }
 
             var director = new Director(Guid.NewGuid(), createDirectorDto.FirstName, createDirectorDto.LastName);
@@ -26,15 +27,14 @@ namespace MoviesRating.Application.Services
             return director.DirectorId;
         }
 
-        public async Task<bool> DeleteAsync(DeleteDirectorDto deleteDirectorDto)
+        public async Task DeleteAsync(DeleteDirectorDto deleteDirectorDto)
         {
             var deleteDirector = await _directorRepository.GetAsync(deleteDirectorDto.DirectorId);
             if (deleteDirector == null)
             {
-                return false;
+                throw new DirectorDoesNotExistException();
             }
-            await _directorRepository.DeleteAsync(deleteDirector);
-            return true;
+            await _directorRepository.DeleteAsync(deleteDirector);            
         }
 
         public async Task<IEnumerable<DirectorDto>> GetAllAsync()
@@ -59,25 +59,25 @@ namespace MoviesRating.Application.Services
             };
         }
 
-        public async Task<bool> UpdateAsync(UpdateDirectorDto updateDirectorDto)
+        public async Task UpdateAsync(UpdateDirectorDto updateDirectorDto)
         {
             var director = await _directorRepository.GetAsync(updateDirectorDto.DirectorId);
             if (director == null)
             {
-                return false;
+                throw new DirectorDoesNotExistException();
             }
 
-            var existingMovie = await _directorRepository.GetDirectorByFirstNameAndLastName(updateDirectorDto.FirstName, updateDirectorDto.LastName);
-            if (existingMovie != null)
+            var existingDirector = await _directorRepository.GetDirectorByFirstNameAndLastName(updateDirectorDto.FirstName, updateDirectorDto.LastName);
+            if (existingDirector != null)
             {
-                return false;
+                throw new DirectorExistException();
             }
 
             director.ChangeFirstName(updateDirectorDto.FirstName);
             director.ChangeLastName(updateDirectorDto.LastName);
             
             await _directorRepository.UpdateAsync(director);
-            return true;
+            
         }
     }
 }
