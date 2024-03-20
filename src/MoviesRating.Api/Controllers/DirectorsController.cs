@@ -37,10 +37,7 @@ namespace MoviesRating.Api.Controllers
         public async Task<ActionResult> Post(CreateDirectorDto createDirectorDto)
         {
             var id = await _directorService.CreateAsync(createDirectorDto);
-            if (id==null)
-            {
-                return BadRequest();
-            }
+            
             return CreatedAtAction(nameof(Get), new { id }, null);
         }
 

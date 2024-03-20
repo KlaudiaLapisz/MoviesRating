@@ -37,10 +37,7 @@ namespace MoviesRating.Api.Controllers
         public async Task<ActionResult> Post (CreateMovieDto createMovieDto)
         {
             var id = await _movieService.CreateAsync(createMovieDto);
-            if (id==null)
-            {
-                return BadRequest();
-            }
+
             return CreatedAtAction(nameof(Get), new { id }, null);
         }
 
@@ -48,11 +45,8 @@ namespace MoviesRating.Api.Controllers
         public async Task<ActionResult> Put (Guid id, UpdateMovieDto updateMovieDto)
         {
             updateMovieDto.MovieId = id;
-            var result = await _movieService.UpdateAsync(updateMovieDto);
-            if (!result)
-            {
-                return BadRequest();
-            }
+            await _movieService.UpdateAsync(updateMovieDto);
+            
             return NoContent();
         }
 
@@ -60,11 +54,8 @@ namespace MoviesRating.Api.Controllers
         public async Task<ActionResult> Delete(Guid id)
         {
             var deleteMovieDto = new DeleteMovieDto { MovieId = id };
-            var result = await _movieService.DeleteAsync(deleteMovieDto);
-            if (!result)
-            {
-                return BadRequest();
-            }
+            await _movieService.DeleteAsync(deleteMovieDto);
+            
             return NoContent();
         }
     }

@@ -1,4 +1,5 @@
 ﻿using MoviesRating.Application.DTO.Movies;
+using MoviesRating.Application.Exceptions;
 using MoviesRating.Domain.Entities;
 using MoviesRating.Domain.Repositories;
 
@@ -17,24 +18,24 @@ namespace MoviesRating.Application.Services
             _genreRepository = genreRepository;
         }
 
-        public async Task<Guid?> CreateAsync(CreateMovieDto createMovieDto)
+        public async Task<Guid> CreateAsync(CreateMovieDto createMovieDto)
         {
             var existingMovie = await _movieRepository.GetMovieByTitleAndYearOfProductionAsync(createMovieDto.Title, createMovieDto.YearOfProduction);
             if (existingMovie != null)
             {
-                return null;
+                throw new MovieExistException();
             }
 
             var director = await _directorRepository.GetAsync(createMovieDto.DirectorId);
             if (director == null)
             {
-                return null;
+                throw new DirectorDoesNotExistException();
             }
 
             var genre = await _genreRepository.GetAsync(createMovieDto.GenreId);
             if (genre == null)
             {
-                return null;
+                throw new GenreDoesNotExistException();
             }
 
             var movie = new Movie(Guid.NewGuid(), createMovieDto.Title, createMovieDto.YearOfProduction, createMovieDto.Description, director, genre);
@@ -42,16 +43,15 @@ namespace MoviesRating.Application.Services
             return movie.MovieId;
         }
 
-        public async Task<bool> DeleteAsync(DeleteMovieDto deleteMovieDto)
+        public async Task DeleteAsync(DeleteMovieDto deleteMovieDto)
         {
             var deleteMovie = await _movieRepository.GetAsync(deleteMovieDto.MovieId);
             if (deleteMovie == null)
             {
-                return false;
+                throw new MovieDoesNotExistException();
             }
 
             await _movieRepository.DeleteAsync(deleteMovie);
-            return true;
         }
 
         public async Task<IEnumerable<MovieDto>> GetAllAsync()
@@ -96,30 +96,30 @@ namespace MoviesRating.Application.Services
             };
         }
 
-        public async Task<bool> UpdateAsync(UpdateMovieDto updateMovieDto)
+        public async Task UpdateAsync(UpdateMovieDto updateMovieDto)
         {
             var movie = await _movieRepository.GetAsync(updateMovieDto.MovieId);
             if (movie == null)
             {
-                return false;
+                throw new MovieDoesNotExistException();
             }
 
             var existingMovie = await _movieRepository.GetMovieByTitleAndYearOfProductionAsync(updateMovieDto.Title, updateMovieDto.YearOfProduction);
             if (existingMovie != null)
             {
-                return false;
+                throw new MovieExistException();
             }
 
             var director = await _directorRepository.GetAsync(updateMovieDto.DirectorId);
             if (director == null)
             {
-                return false;
+                throw new DirectorDoesNotExistException();
             }
 
             var genre = await _genreRepository.GetAsync(updateMovieDto.GenreId);
             if (genre == null)
             {
-                return false;
+                throw new GenreDoesNotExistException();
             }
 
             movie.ChangeTitle(updateMovieDto.Title);
@@ -129,7 +129,6 @@ namespace MoviesRating.Application.Services
             movie.ChangeGenre(genre);
 
             await _movieRepository.UpdateAsync(movie);
-            return true;
         }
     }
 }
