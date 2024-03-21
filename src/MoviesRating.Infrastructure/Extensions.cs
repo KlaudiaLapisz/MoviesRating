@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MoviesRating.Domain.Repositories;
 using MoviesRating.Infrastructure.DAL;
+using MoviesRating.Infrastructure.Exceptions;
 using MoviesRating.Infrastructure.Repositories;
 
 namespace MoviesRating.Infrastructure
@@ -16,8 +18,16 @@ namespace MoviesRating.Infrastructure
             services.AddScoped<IMovieRepository, MovieRepository>();
             services.AddScoped<IDirectorRepository, DirectorRepository>();
             services.AddScoped<IGenreRepository, GenreRepository>();
+            services.AddSingleton<ErrorHandlingMiddleware>();
 
             return services;
+        }
+
+        public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
+        {
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+
+            return app;
         }
     }
 }
