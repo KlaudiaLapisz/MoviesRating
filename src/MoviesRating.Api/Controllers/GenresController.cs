@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using MoviesRating.Application.Commands;
 using MoviesRating.Application.DTO.Genres;
 using MoviesRating.Application.Services;
 
@@ -9,10 +11,12 @@ namespace MoviesRating.Api.Controllers
     public class GenresController:ControllerBase
     {
         private readonly IGenreService _genreService;
+        private readonly IMediator _mediator;
 
-        public GenresController(IGenreService genreService)
+        public GenresController(IGenreService genreService, IMediator mediator)
         {
             _genreService = genreService;
+            _mediator = mediator;
         }
 
         [HttpGet]
@@ -34,18 +38,19 @@ namespace MoviesRating.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post (CreateGenreDto createGenredto)
+        public async Task<ActionResult> Post (CreateGenreCommand command)
         {
-            var id = await _genreService.CreateAsync(createGenredto);
+            command.GenreId = Guid.NewGuid();
+            await _mediator.Send(command);
             
-            return CreatedAtAction(nameof(Get), new { id }, null);
+            return CreatedAtAction(nameof(Get), new { id = command.GenreId }, null);
         }
 
         [HttpPut("{id:guid}")]
-        public async Task<ActionResult> Put(Guid id, UpdateGenreDto updateGenredto)
+        public async Task<ActionResult> Put(Guid id, UpdateGenreCommand command)
         {
-            updateGenredto.GenreId = id;
-            await _genreService.UpdateAsync(updateGenredto);
+            command.GenreId = id;
+            await _mediator.Send(command);
             
             return NoContent();
         }
@@ -53,8 +58,8 @@ namespace MoviesRating.Api.Controllers
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult> Delete(Guid id)
         {
-            var deleteGenreDto = new DeleteGenreDto { GenreId = id };
-            await _genreService.DeleteAsync(deleteGenreDto);
+            var command = new DeleteGenreCommand { GenreId = id };
+            await _mediator.Send(command);
             
             return NoContent();
         }

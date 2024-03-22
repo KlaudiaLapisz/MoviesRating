@@ -1,5 +1,5 @@
 @url = http://localhost:5000
-@genreId=87995f88-8799-4a73-8bd8-834aa3fb0447
+@genreId=2f1b03e5-509d-458d-8ab5-ba3025b29f51
 @directorId=ec172fae-7eee-458e-bc4b-da6c1ec1f0c2
 @movieId=37e0ce2a-64e4-42a8-b8b9-2763dd6a1bf3
 
@@ -17,7 +17,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "name": "krymina³"
+  "name": "komedia"
 }
 
 ###
@@ -26,7 +26,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "name": "thriller"
+  "name": "komedia"
 }
 
 ###
