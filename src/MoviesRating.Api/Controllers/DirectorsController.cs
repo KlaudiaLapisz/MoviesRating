@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using MoviesRating.Application.Commands;
 using MoviesRating.Application.DTO.Directors;
 using MoviesRating.Application.Services;
 
@@ -9,10 +11,12 @@ namespace MoviesRating.Api.Controllers
     public class DirectorsController:ControllerBase
     {
         private readonly IDirectorService _directorService;
+        private readonly IMediator _mediator;
 
-        public DirectorsController(IDirectorService directorService)
+        public DirectorsController(IDirectorService directorService, IMediator mediator)
         {
             _directorService = directorService;
+            _mediator = mediator;
         }
 
         [HttpGet]
@@ -34,11 +38,12 @@ namespace MoviesRating.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post(CreateDirectorDto createDirectorDto)
+        public async Task<ActionResult> Post(CreateDirectorCommand command)
         {
-            var id = await _directorService.CreateAsync(createDirectorDto);
+            command.DirectorId = Guid.NewGuid();
+            await _mediator.Send(command);
             
-            return CreatedAtAction(nameof(Get), new { id }, null);
+            return CreatedAtAction(nameof(Get), new { id=command.DirectorId }, null);
         }
 
         [HttpPut("{id:guid}")]
@@ -53,8 +58,8 @@ namespace MoviesRating.Api.Controllers
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult> Delete(Guid id)
         {
-            var deleteDirectorDto = new DeleteDirectorDto { DirectorId = id };
-            await _directorService.DeleteAsync(deleteDirectorDto);
+            var command = new DeleteDirectorCommand { DirectorId = id };
+            await _mediator.Send(command);
            
             return NoContent();
         }

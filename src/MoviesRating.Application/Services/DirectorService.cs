@@ -1,4 +1,5 @@
-﻿using MoviesRating.Application.DTO.Directors;
+﻿using MoviesRating.Application.Commands;
+using MoviesRating.Application.DTO.Directors;
 using MoviesRating.Application.Exceptions;
 using MoviesRating.Domain.Entities;
 using MoviesRating.Domain.Repositories;
@@ -12,30 +13,8 @@ namespace MoviesRating.Application.Services
         public DirectorService(IDirectorRepository directorRepository)
         {
             _directorRepository = directorRepository;
-        }
-
-        public async Task<Guid> CreateAsync(CreateDirectorDto createDirectorDto)
-        {
-            var existingDirector = await _directorRepository.GetDirectorByFirstNameAndLastName(createDirectorDto.FirstName, createDirectorDto.LastName);
-            if (existingDirector != null)
-            {
-                throw new DirectorExistException();
-            }
-
-            var director = new Director(Guid.NewGuid(), createDirectorDto.FirstName, createDirectorDto.LastName);
-            await _directorRepository.AddAsync(director);
-            return director.DirectorId;
-        }
-
-        public async Task DeleteAsync(DeleteDirectorDto deleteDirectorDto)
-        {
-            var deleteDirector = await _directorRepository.GetAsync(deleteDirectorDto.DirectorId);
-            if (deleteDirector == null)
-            {
-                throw new DirectorDoesNotExistException();
-            }
-            await _directorRepository.DeleteAsync(deleteDirector);            
-        }
+        }      
+             
 
         public async Task<IEnumerable<DirectorDto>> GetAllAsync()
         {
