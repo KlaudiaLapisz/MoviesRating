@@ -47,10 +47,10 @@ namespace MoviesRating.Api.Controllers
         }
 
         [HttpPut("{id:guid}")]
-        public async Task<ActionResult> Put(Guid id, UpdateDirectorDto updateDirectorDto)
+        public async Task<ActionResult> Put(Guid id, UpdateDirectorCommand command)
         {
-            updateDirectorDto.DirectorId = id;
-            await _directorService.UpdateAsync(updateDirectorDto);
+            command.DirectorId = id;
+            await _mediator.Send(command);
            
             return NoContent();
         }

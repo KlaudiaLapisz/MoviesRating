@@ -37,26 +37,5 @@ namespace MoviesRating.Application.Services
                 LastName = director.LastName
             };
         }
-
-        public async Task UpdateAsync(UpdateDirectorDto updateDirectorDto)
-        {
-            var director = await _directorRepository.GetAsync(updateDirectorDto.DirectorId);
-            if (director == null)
-            {
-                throw new DirectorDoesNotExistException();
-            }
-
-            var existingDirector = await _directorRepository.GetDirectorByFirstNameAndLastName(updateDirectorDto.FirstName, updateDirectorDto.LastName);
-            if (existingDirector != null)
-            {
-                throw new DirectorExistException();
-            }
-
-            director.ChangeFirstName(updateDirectorDto.FirstName);
-            director.ChangeLastName(updateDirectorDto.LastName);
-            
-            await _directorRepository.UpdateAsync(director);
-            
-        }
     }
 }

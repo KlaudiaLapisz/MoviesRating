@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using MoviesRating.Application.Commands;
 using MoviesRating.Application.DTO.Movies;
 using MoviesRating.Application.Services;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace MoviesRating.Api.Controllers
 {
@@ -9,10 +12,12 @@ namespace MoviesRating.Api.Controllers
     public class MoviesController:ControllerBase
     {
         private readonly IMovieService _movieService;
+        private readonly IMediator _mediator;
 
-        public MoviesController(IMovieService movieService)
+        public MoviesController(IMovieService movieService, IMediator mediator)
         {
             _movieService = movieService;
+            _mediator = mediator;
         }
 
         [HttpGet]
@@ -34,11 +39,12 @@ namespace MoviesRating.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post (CreateMovieDto createMovieDto)
+        public async Task<ActionResult> Post (CreateMovieCommand command)
         {
-            var id = await _movieService.CreateAsync(createMovieDto);
+            command.MovieId = Guid.NewGuid();
+            await _mediator.Send(command);
 
-            return CreatedAtAction(nameof(Get), new { id }, null);
+            return CreatedAtAction(nameof(Get), new { id=command.MovieId }, null);
         }
 
         [HttpPut("{id:guid}")]

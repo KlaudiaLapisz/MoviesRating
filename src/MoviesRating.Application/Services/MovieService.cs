@@ -1,4 +1,5 @@
-﻿using MoviesRating.Application.DTO.Movies;
+﻿using MoviesRating.Application.Commands;
+using MoviesRating.Application.DTO.Movies;
 using MoviesRating.Application.Exceptions;
 using MoviesRating.Domain.Entities;
 using MoviesRating.Domain.Repositories;
@@ -16,31 +17,6 @@ namespace MoviesRating.Application.Services
             _movieRepository = movieRepository;
             _directorRepository = directorRepository;
             _genreRepository = genreRepository;
-        }
-
-        public async Task<Guid> CreateAsync(CreateMovieDto createMovieDto)
-        {
-            var existingMovie = await _movieRepository.GetMovieByTitleAndYearOfProductionAsync(createMovieDto.Title, createMovieDto.YearOfProduction);
-            if (existingMovie != null)
-            {
-                throw new MovieExistException();
-            }
-
-            var director = await _directorRepository.GetAsync(createMovieDto.DirectorId);
-            if (director == null)
-            {
-                throw new DirectorDoesNotExistException();
-            }
-
-            var genre = await _genreRepository.GetAsync(createMovieDto.GenreId);
-            if (genre == null)
-            {
-                throw new GenreDoesNotExistException();
-            }
-
-            var movie = new Movie(Guid.NewGuid(), createMovieDto.Title, createMovieDto.YearOfProduction, createMovieDto.Description, director, genre);
-            await _movieRepository.AddAsync(movie);
-            return movie.MovieId;
         }
 
         public async Task DeleteAsync(DeleteMovieDto deleteMovieDto)

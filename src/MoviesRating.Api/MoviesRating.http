@@ -1,6 +1,6 @@
 @url = http://localhost:5000
 @genreId=2f1b03e5-509d-458d-8ab5-ba3025b29f51
-@directorId=ec172fae-7eee-458e-bc4b-da6c1ec1f0c2
+@directorId=5a118161-f073-4852-ba67-5026e020626c
 @movieId=37e0ce2a-64e4-42a8-b8b9-2763dd6a1bf3
 
 ###
@@ -47,8 +47,8 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "firstname": "James",
-  "lastname": "Wan"
+  "firstname": "Agnieszka",
+  "lastname": "Holland"
 }
 
 ###
@@ -58,7 +58,7 @@ Content-Type: application/json
 
 {
   "firstname": "Agnieszka",
-  "lastname": "Holland"
+  "lastname": "Holand"
 }
 
 ###
@@ -79,9 +79,9 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "title": "The Cojuring",
-  "yearofproduction": "2013",
-  "description": "The Conjuring is a 2013 supernatural horror film inspired by the true-life story of the Perron family, who claimed they 'lived among the dead' in the 1970s as spirits both friendly and sinister inhabited their Rhode Island farmhouse.",
+  "title": "Insidious",
+  "yearofproduction": "2010",
+  "description": "A family looks to prevent evil spirits from trapping their comatose child in a realm called The Further.",
   "genreId": "56c49023-b28d-4d1b-adbf-b40b635553bc",
   "directorId": "ec172fae-7eee-458e-bc4b-da6c1ec1f0c2"
 }

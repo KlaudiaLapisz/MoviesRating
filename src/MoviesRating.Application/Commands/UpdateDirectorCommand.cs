@@ -1,6 +1,8 @@
-﻿namespace MoviesRating.Application.DTO.Directors
+﻿using MediatR;
+
+namespace MoviesRating.Application.Commands
 {
-    public class UpdateDirectorDto
+    public class UpdateDirectorCommand:IRequest
     {
         public Guid DirectorId { get; set; }
         public string FirstName { get; set; }
