@@ -48,10 +48,10 @@ namespace MoviesRating.Api.Controllers
         }
 
         [HttpPut("{id:guid}")]
-        public async Task<ActionResult> Put (Guid id, UpdateMovieDto updateMovieDto)
+        public async Task<ActionResult> Put (Guid id, UpdateMovieCommand command)
         {
-            updateMovieDto.MovieId = id;
-            await _movieService.UpdateAsync(updateMovieDto);
+            command.MovieId = id;
+            await _mediator.Send(command);
             
             return NoContent();
         }
@@ -59,8 +59,8 @@ namespace MoviesRating.Api.Controllers
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult> Delete(Guid id)
         {
-            var deleteMovieDto = new DeleteMovieDto { MovieId = id };
-            await _movieService.DeleteAsync(deleteMovieDto);
+            var command = new DeleteMovieCommand { MovieId = id };
+            await _mediator.Send(command);
             
             return NoContent();
         }

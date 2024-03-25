@@ -19,17 +19,6 @@ namespace MoviesRating.Application.Services
             _genreRepository = genreRepository;
         }
 
-        public async Task DeleteAsync(DeleteMovieDto deleteMovieDto)
-        {
-            var deleteMovie = await _movieRepository.GetAsync(deleteMovieDto.MovieId);
-            if (deleteMovie == null)
-            {
-                throw new MovieDoesNotExistException();
-            }
-
-            await _movieRepository.DeleteAsync(deleteMovie);
-        }
-
         public async Task<IEnumerable<MovieDto>> GetAllAsync()
         {
             var movies = await _movieRepository.GetAllAsync();
@@ -72,39 +61,5 @@ namespace MoviesRating.Application.Services
             };
         }
 
-        public async Task UpdateAsync(UpdateMovieDto updateMovieDto)
-        {
-            var movie = await _movieRepository.GetAsync(updateMovieDto.MovieId);
-            if (movie == null)
-            {
-                throw new MovieDoesNotExistException();
-            }
-
-            var existingMovie = await _movieRepository.GetMovieByTitleAndYearOfProductionAsync(updateMovieDto.Title, updateMovieDto.YearOfProduction);
-            if (existingMovie != null)
-            {
-                throw new MovieExistException();
-            }
-
-            var director = await _directorRepository.GetAsync(updateMovieDto.DirectorId);
-            if (director == null)
-            {
-                throw new DirectorDoesNotExistException();
-            }
-
-            var genre = await _genreRepository.GetAsync(updateMovieDto.GenreId);
-            if (genre == null)
-            {
-                throw new GenreDoesNotExistException();
-            }
-
-            movie.ChangeTitle(updateMovieDto.Title);
-            movie.ChangeDescription(updateMovieDto.Description);
-            movie.ChangeYearOfProduction(updateMovieDto.YearOfProduction);
-            movie.ChangeDirector(director);
-            movie.ChangeGenre(genre);
-
-            await _movieRepository.UpdateAsync(movie);
-        }
     }
 }
