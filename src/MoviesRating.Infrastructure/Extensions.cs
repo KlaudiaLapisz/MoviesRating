@@ -19,6 +19,8 @@ namespace MoviesRating.Infrastructure
             services.AddScoped<IDirectorRepository, DirectorRepository>();
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddSingleton<ErrorHandlingMiddleware>();
+            var assembly = typeof(Extensions).Assembly;
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assembly));
 
             return services;
         }

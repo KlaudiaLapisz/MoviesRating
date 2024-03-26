@@ -10,6 +10,8 @@ namespace MoviesRating.Application
             services.AddScoped<IMovieService, MovieService>();
             services.AddScoped<IDirectorService, DirectorService>();
             services.AddScoped<IGenreService, GenreService>();
+            var assembly = typeof(Extensions).Assembly;
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assembly));
 
             return services;
         }
