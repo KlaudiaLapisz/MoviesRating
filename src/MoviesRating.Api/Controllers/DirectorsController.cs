@@ -2,13 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using MoviesRating.Application.Commands;
 using MoviesRating.Application.DTO.Directors;
+using MoviesRating.Application.Queries;
 using MoviesRating.Application.Services;
 
 namespace MoviesRating.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class DirectorsController:ControllerBase
+    public class DirectorsController : ControllerBase
     {
         private readonly IDirectorService _directorService;
         private readonly IMediator _mediator;
@@ -22,15 +23,15 @@ namespace MoviesRating.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DirectorDto>>> GetAll()
         {
-            var result = await _directorService.GetAllAsync();
+            var result = await _mediator.Send(new GetAllDirectorsQuery());
             return Ok(result);
         }
 
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<DirectorDto>> Get(Guid id)
         {
-            var result = await _directorService.GetAsync(id);
-            if (result==null)
+            var result = await _mediator.Send(new GetDirectorByIdQuery() { Id = id });
+            if (result == null)
             {
                 return NotFound();
             }
@@ -42,8 +43,8 @@ namespace MoviesRating.Api.Controllers
         {
             command.DirectorId = Guid.NewGuid();
             await _mediator.Send(command);
-            
-            return CreatedAtAction(nameof(Get), new { id=command.DirectorId }, null);
+
+            return CreatedAtAction(nameof(Get), new { id = command.DirectorId }, null);
         }
 
         [HttpPut("{id:guid}")]
@@ -51,7 +52,7 @@ namespace MoviesRating.Api.Controllers
         {
             command.DirectorId = id;
             await _mediator.Send(command);
-           
+
             return NoContent();
         }
 
@@ -60,7 +61,7 @@ namespace MoviesRating.Api.Controllers
         {
             var command = new DeleteDirectorCommand { DirectorId = id };
             await _mediator.Send(command);
-           
+
             return NoContent();
         }
     }
