@@ -1,8 +1,7 @@
 @url = http://localhost:5000
 @genreId=2f1b03e5-509d-458d-8ab5-ba3025b29f51
 @directorId=5a118161-f073-4852-ba67-5026e020626c
-@movieId=6ac4ebe9-60f9-4e6f-b732-f57d936ecc53
-
+@movieId=37e0ce2a-64e4-42a8-b8b9-2763dd6a1bf3
 ###
 GET {{url}}/genres
 Accept: application/json

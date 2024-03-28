@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MoviesRating.Application.Commands;
 using MoviesRating.Application.DTO.Movies;
+using MoviesRating.Application.Queries;
 using MoviesRating.Application.Services;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
@@ -23,14 +24,14 @@ namespace MoviesRating.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MovieDto>>> GetAll()
         {
-            var result = await _movieService.GetAllAsync();
+            var result = await _mediator.Send(new GetAllMoviesQuery());
             return Ok(result);
         }
 
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<MovieDto>> Get(Guid id)
         {
-            var result = await _movieService.GetAsync(id);
+            var result = await _mediator.Send(new GetMovieByIdQuery() { Id = id });
             if(result==null)
             {
                 return NotFound();
