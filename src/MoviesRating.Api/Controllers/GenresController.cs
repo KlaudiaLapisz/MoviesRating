@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using MoviesRating.Application.Commands;
 using MoviesRating.Application.DTO.Genres;
 using MoviesRating.Application.Queries;
-using MoviesRating.Application.Services;
 
 namespace MoviesRating.Api.Controllers
 {
@@ -11,12 +10,10 @@ namespace MoviesRating.Api.Controllers
     [Route("[controller]")]
     public class GenresController : ControllerBase
     {
-        private readonly IGenreService _genreService;
         private readonly IMediator _mediator;
 
-        public GenresController(IGenreService genreService, IMediator mediator)
+        public GenresController(IMediator mediator)
         {
-            _genreService = genreService;
             _mediator = mediator;
         }
 

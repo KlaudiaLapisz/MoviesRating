@@ -3,21 +3,16 @@ using Microsoft.AspNetCore.Mvc;
 using MoviesRating.Application.Commands;
 using MoviesRating.Application.DTO.Movies;
 using MoviesRating.Application.Queries;
-using MoviesRating.Application.Services;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
-
 namespace MoviesRating.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class MoviesController:ControllerBase
     {
-        private readonly IMovieService _movieService;
         private readonly IMediator _mediator;
 
-        public MoviesController(IMovieService movieService, IMediator mediator)
+        public MoviesController(IMediator mediator)
         {
-            _movieService = movieService;
             _mediator = mediator;
         }
 
