@@ -11,7 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoviesRating.Domain", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoviesRating.Application", "src\MoviesRating.Application\MoviesRating.Application.csproj", "{C880DAD1-CCDD-4A7A-83F5-CE9224B0C9AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoviesRating.Infrastructure", "src\MoviesRating.Infrastructure\MoviesRating.Infrastructure.csproj", "{F7B5225A-CFC6-4670-BE83-E0FF13FBD31B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoviesRating.Infrastructure", "src\MoviesRating.Infrastructure\MoviesRating.Infrastructure.csproj", "{F7B5225A-CFC6-4670-BE83-E0FF13FBD31B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{62B97FAB-E04F-42ED-8264-E59386CD4913}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoviesRating.UnitTests", "tests\MoviesRating.UnitTests\MoviesRating.UnitTests.csproj", "{23DDEA88-14DE-4836-A495-6A3CBF8048B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +39,10 @@ Global
 		{F7B5225A-CFC6-4670-BE83-E0FF13FBD31B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7B5225A-CFC6-4670-BE83-E0FF13FBD31B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7B5225A-CFC6-4670-BE83-E0FF13FBD31B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23DDEA88-14DE-4836-A495-6A3CBF8048B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23DDEA88-14DE-4836-A495-6A3CBF8048B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23DDEA88-14DE-4836-A495-6A3CBF8048B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23DDEA88-14DE-4836-A495-6A3CBF8048B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +52,7 @@ Global
 		{ED0C70CE-1E79-4F70-933E-1467C515C0A3} = {AD1D09F3-CC8C-49EC-B5B9-7F552CF31F67}
 		{C880DAD1-CCDD-4A7A-83F5-CE9224B0C9AF} = {AD1D09F3-CC8C-49EC-B5B9-7F552CF31F67}
 		{F7B5225A-CFC6-4670-BE83-E0FF13FBD31B} = {AD1D09F3-CC8C-49EC-B5B9-7F552CF31F67}
+		{23DDEA88-14DE-4836-A495-6A3CBF8048B6} = {62B97FAB-E04F-42ED-8264-E59386CD4913}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {926575D0-222B-43D6-8DAC-6B52F812FA11}
