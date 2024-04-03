@@ -110,6 +110,110 @@ namespace MoviesRating.UnitTests.Entities
             Assert.IsType<DirectorLastNameLengthExceededException>(exception);
         }
 
+        [Fact]
+        public void ChangeFirstName_ShouldThrowsEmptyDirectorFirstNameException_WhenFirstNameIsEmpty()
+        {
+            // Arrange
+            var directorId = Guid.NewGuid();
+            var firstName = "James";
+            var newFirstName = "";
+            var lastName = "Wann";
+            var director = new Director(directorId, firstName, lastName);
 
+            // Act
+            var exception = Record.Exception(() => director.ChangeFirstName(newFirstName));
+
+            // Assert
+            Assert.NotNull(exception);
+            Assert.IsType<EmptyDirectorFirstNameException>(exception);
+        }
+
+        [Fact]
+        public void ChangeFirstName_ShouldThrowsDirectorFirstNameLengthExceededException_WhenFirstNameIsTooLong()
+        {
+            // Arrange
+            var directorId = Guid.NewGuid();
+            var firstName = "James";
+            var newFirstName = "qwertyuiop-asdfghjklz-cvbnmqwtyu";
+            var lastName = "Wann";
+            var director = new Director(directorId, firstName, lastName);
+
+            // Act
+            var exception = Record.Exception(() => director.ChangeFirstName(newFirstName));
+
+            // Assert
+            Assert.NotNull(exception);
+            Assert.IsType<DirectorFirstNameLengthExceededException>(exception);
+        }
+
+        [Fact]
+        public void ChangeFirstName_ShouldChangeFirstName_WhenSuccess()
+        {
+            // Arrange
+            var directorId = Guid.NewGuid();
+            var firstName = "James";
+            var newFirstName = "Agnieszka";
+            var lastName = "Holland";
+            var director = new Director(directorId, firstName, lastName);
+
+            // Act
+            director.ChangeFirstName(newFirstName);
+
+            // Assert
+            Assert.Equal(newFirstName, director.FirstName);
+        }
+
+        [Fact]
+        public void ChangeLastName_ShouldThrowsEmptyDirectorLastNameException_WhenLastNameIsEmpty()
+        {
+            // Arrange
+            var directorId = Guid.NewGuid();
+            var firstName = "James";
+            var lastName = "Wann";
+            var newLastName = "";
+            var director = new Director(directorId, firstName, lastName);
+
+            // Act
+            var exception = Record.Exception(() => director.ChangeLastName(newLastName));
+
+            // Assert
+            Assert.NotNull(exception);
+            Assert.IsType<EmptyDirectorLastNameException>(exception);
+        }
+
+        [Fact]
+        public void ChangeLastName_ShouldThrowsDirectorLastNameLengthExceededException_WhenLastNameIsTooLong()
+        {
+            // Arrange
+            var directorId = Guid.NewGuid();
+            var firstName = "James";
+            var lastName = "Wann";
+            var newLastName = "qwertyuiopa-qwertyuiop-qwertyuiop";
+            var director = new Director(directorId, firstName, lastName);
+
+            // Act
+            var exception = Record.Exception(() => director.ChangeLastName(newLastName));
+
+            // Assert
+            Assert.NotNull(exception);
+            Assert.IsType<DirectorLastNameLengthExceededException>(exception);
+        }
+
+        [Fact]
+        public void ChangeLastName_ShouldChangeLastName_WhenSuccess()
+        {
+            // Arrange
+            var directorId = Guid.NewGuid();
+            var firstName = "James";
+            var lastName = "Holland";
+            var newLastName = "Wann";
+            var director = new Director(directorId, firstName, lastName);
+
+            // Act
+            director.ChangeFirstName(newLastName);
+
+            // Assert
+            Assert.Equal(newLastName, director.FirstName);
+        }
     }
 }
