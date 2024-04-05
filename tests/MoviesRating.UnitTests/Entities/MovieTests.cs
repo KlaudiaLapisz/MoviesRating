@@ -169,5 +169,111 @@ namespace MoviesRating.UnitTests.Entities
             Assert.Equal(genre.GenreId, movie.Genre.GenreId);
             Assert.Equal(genre.Name, movie.Genre.Name);
         }
+
+        [Fact]
+        public void ChangeTitle_ShouldChangeTitle_WhenSuccess()
+        {
+            // Arrange
+            var movieId = Guid.NewGuid();
+            var title = "Zielona Mila";
+            var newTitle = "Lśnienie";
+            var yearOfProduction = 1980;
+            var description = "Jack podejmuje pracę stróża odciętego od świata hotelu Overlook. Wkrótce idylla zamienia się w koszmar.";
+            var director = new Director(Guid.NewGuid(), "Stanley", "Kubrick");
+            var genre = new Genre(Guid.NewGuid(), "Horror");
+            var movie = new Movie(movieId, title, yearOfProduction, description, director, genre);
+
+            // Act
+            movie.ChangeTitle(newTitle);
+
+            // Assert
+            Assert.Equal(newTitle, movie.Title);
+        }
+
+        [Fact]
+        public void ChangeTitle_ShouldThrowsEmptyMovieTitleException_WhenTitleIsEmpty()
+        {
+            // Arrange
+            var movieId = Guid.NewGuid();
+            var title = "Zielona Mila";
+            var newTitle = "";
+            var yearOfProduction = 1980;
+            var description = "Jack podejmuje pracę stróża odciętego od świata hotelu Overlook. Wkrótce idylla zamienia się w koszmar.";
+            var director = new Director(Guid.NewGuid(), "Stanley", "Kubrick");
+            var genre = new Genre(Guid.NewGuid(), "Horror");
+            var movie = new Movie(movieId, title, yearOfProduction, description, director, genre);
+
+            // Act
+            var exception = Record.Exception(() => movie.ChangeTitle(newTitle));
+
+            // Assert
+            Assert.NotNull(exception);
+            Assert.IsType<EmptyMovieTitleException>(exception);
+        }
+
+        [Fact]
+        public void ChangeTitle_ShouldThrowsMovieTitleLengthExceededException_WhenTitleIsTooLong()
+        {
+            // Arrange
+            var movieId = Guid.NewGuid();
+            var title = "Zielona Mila";
+            var newTitle = "qwertyuiop-qwertyuiop-qwertyuiop-qwertyuiop-qwertyuiop";
+            var yearOfProduction = 1980;
+            var description = "Jack podejmuje pracę stróża odciętego od świata hotelu Overlook. Wkrótce idylla zamienia się w koszmar.";
+            var director = new Director(Guid.NewGuid(), "Stanley", "Kubrick");
+            var genre = new Genre(Guid.NewGuid(), "Horror");
+            var movie = new Movie(movieId, title, yearOfProduction, description, director, genre);
+
+            // Act
+            var exception = Record.Exception(() => movie.ChangeTitle(newTitle));
+
+            // Assert
+            Assert.NotNull(exception);
+            Assert.IsType<MovieTitleLengthExceededException>(exception);
+        }
+
+
+        [Fact]
+        public void ChangeYearOfProduction_ShouldThrowsIncorrectYearOfProductionException_WhenYearOfProductionIsIncorrect()
+        {
+            // Arrange
+            var movieId = Guid.NewGuid();
+            var title = "Lśnienie";
+            var yearOfProduction = 1980;
+            var newYearOfProduction = 1513;
+            var description = "Jack podejmuje pracę stróża odciętego od świata hotelu Overlook. Wkrótce idylla zamienia się w koszmar.";
+            var director = new Director(Guid.NewGuid(), "Stanley", "Kubrick");
+            var genre = new Genre(Guid.NewGuid(), "Horror");
+            var movie = new Movie(movieId, title, yearOfProduction, description, director, genre);
+
+            // Act
+            var exception = Record.Exception(() => movie.ChangeYearOfProduction(newYearOfProduction));
+
+            // Assert
+            Assert.NotNull(exception);
+            Assert.IsType<IncorrectYearOfProductionException>(exception);
+        }
+
+
+        [Fact]
+        public void ChangeYearOfProduction_ShouldChangeYearOfProduction_WhenSuccess()
+        {
+            // Arrange
+            var movieId = Guid.NewGuid();
+            var title = "Lśnienie";
+            var yearOfProduction = 1981;
+            var newYearOfProduction = 1980;
+            var description = "Jack podejmuje pracę stróża odciętego od świata hotelu Overlook. Wkrótce idylla zamienia się w koszmar.";
+            var director = new Director(Guid.NewGuid(), "Stanley", "Kubrick");
+            var genre = new Genre(Guid.NewGuid(), "Horror");
+            var movie = new Movie(movieId, title, yearOfProduction, description, director, genre);
+
+            // Act
+            movie.ChangeYearOfProduction(newYearOfProduction);
+
+            // Assert
+            Assert.Equal(newYearOfProduction, movie.YearOfProduction);
+        }
     }
 }
+
