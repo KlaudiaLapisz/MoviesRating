@@ -232,7 +232,6 @@ namespace MoviesRating.UnitTests.Entities
             Assert.IsType<MovieTitleLengthExceededException>(exception);
         }
 
-
         [Fact]
         public void ChangeYearOfProduction_ShouldThrowsIncorrectYearOfProductionException_WhenYearOfProductionIsIncorrect()
         {
@@ -254,7 +253,6 @@ namespace MoviesRating.UnitTests.Entities
             Assert.IsType<IncorrectYearOfProductionException>(exception);
         }
 
-
         [Fact]
         public void ChangeYearOfProduction_ShouldChangeYearOfProduction_WhenSuccess()
         {
@@ -273,6 +271,129 @@ namespace MoviesRating.UnitTests.Entities
 
             // Assert
             Assert.Equal(newYearOfProduction, movie.YearOfProduction);
+        }
+
+        [Fact]
+        public void ChangeDescription_ShouldThrowsEmptyMovieDescriptionException_WhenDescriptionIsEmpty()
+        {
+            // Arrange
+            var movieId = Guid.NewGuid();
+            var title = "Lśnienie";
+            var yearOfProduction = 1980;
+            var description = "Jack podejmuje pracę stróża odciętego od świata hotelu Overlook. Wkrótce idylla zamienia się w koszmar.";
+            var newDescription = "";
+            var director = new Director(Guid.NewGuid(), "Stanley", "Kubrick");
+            var genre = new Genre(Guid.NewGuid(), "Horror");
+            var movie = new Movie(movieId, title, yearOfProduction, description, director, genre);
+
+            // Act
+            var exception = Record.Exception(() => movie.ChangeDescription(newDescription));
+
+            // Assert
+            Assert.NotNull(exception);
+            Assert.IsType<EmptyMovieDescriptionException>(exception);
+        }
+
+        [Fact]
+        public void ChangeDescription_ShouldChangeDescription_WhenSuccess()
+        {
+            // Arrange
+            var movieId = Guid.NewGuid();
+            var title = "Lśnienie";
+            var yearOfProduction = 1980;
+            var description = "Mark podejmuje pracę stróża odciętego od świata hotelu Look. Wkrótce wszystko zamienia się w koszmar.";
+            var newDescription = "Jack podejmuje pracę stróża odciętego od świata hotelu Overlook. Wkrótce idylla zamienia się w koszmar.";
+            var director = new Director(Guid.NewGuid(), "Stanley", "Kubrick");
+            var genre = new Genre(Guid.NewGuid(), "Horror");
+            var movie = new Movie(movieId, title, yearOfProduction, description, director, genre);
+
+            // Act
+            movie.ChangeDescription(newDescription);
+
+            // Assert
+            Assert.Equal(newDescription, movie.Description);
+        }
+
+        [Fact]
+        public void ChangeDirector_ShouldThrowsEmptyMovieDirectorException_WhenDirectorIsEmpty()
+        {
+            // Arrange
+            var movieId = Guid.NewGuid();
+            var title = "Lśnienie";
+            var yearOfProduction = 1980;
+            var description = "Jack podejmuje pracę stróża odciętego od świata hotelu Overlook. Wkrótce idylla zamienia się w koszmar.";
+            var director = new Director(Guid.NewGuid(), "Stanley", "Kubrick");
+            Director newDirector = null;
+            var genre = new Genre(Guid.NewGuid(), "Horror");
+            var movie = new Movie(movieId, title, yearOfProduction, description, director, genre);
+
+            // Act
+            var exception = Record.Exception(() => movie.ChangeDirector(newDirector));
+
+            // Assert
+            Assert.NotNull(exception);
+            Assert.IsType<EmptyMovieDirectorException>(exception);
+        }
+
+        [Fact]
+        public void ChangeDirector_ShouldChangeDirector_WhenSuccess()
+        {
+            // Arrange
+            var movieId = Guid.NewGuid();
+            var title = "Lśnienie";
+            var yearOfProduction = 1980;
+            var description = "Mark podejmuje pracę stróża odciętego od świata hotelu Look. Wkrótce wszystko zamienia się w koszmar.";
+            var director = new Director(Guid.NewGuid(), "Stanly", "Kubrik");
+            var newDirector = new Director(Guid.NewGuid(), "Stanley", "Kubrick");
+            var genre = new Genre(Guid.NewGuid(), "Horror");
+            var movie = new Movie(movieId, title, yearOfProduction, description, director, genre);
+
+            // Act
+            movie.ChangeDirector(newDirector);
+
+            // Assert
+            Assert.Equal(newDirector, movie.Director);
+        }
+
+        [Fact]
+        public void ChangeGenre_ShouldThrowsEmptyMovieGenreException_WhenGenreIsEmpty()
+        {
+            // Arrange
+            var movieId = Guid.NewGuid();
+            var title = "Lśnienie";
+            var yearOfProduction = 1980;
+            var description = "Jack podejmuje pracę stróża odciętego od świata hotelu Overlook. Wkrótce idylla zamienia się w koszmar.";
+            var director = new Director(Guid.NewGuid(), "Stanley", "Kubrick");
+            var genre = new Genre(Guid.NewGuid(), "Horror");
+            Genre newGenre = null;
+            var movie = new Movie(movieId, title, yearOfProduction, description, director, genre);
+
+            // Act
+            var exception = Record.Exception(() => movie.ChangeGenre(newGenre));
+
+            // Assert
+            Assert.NotNull(exception);
+            Assert.IsType<EmptyMovieGenreException>(exception);
+        }
+
+        [Fact]
+        public void ChangeGenre_ShouldChangeGenre_WhenSuccess()
+        {
+            // Arrange
+            var movieId = Guid.NewGuid();
+            var title = "Lśnienie";
+            var yearOfProduction = 1980;
+            var description = "Mark podejmuje pracę stróża odciętego od świata hotelu Look. Wkrótce wszystko zamienia się w koszmar.";
+            var director = new Director(Guid.NewGuid(), "Stanly", "Kubrik");
+            var genre = new Genre(Guid.NewGuid(), "Horror");
+            var newGenre = new Genre(Guid.NewGuid(), "Thriller");
+            var movie = new Movie(movieId, title, yearOfProduction, description, director, genre);
+
+            // Act
+            movie.ChangeGenre(newGenre);
+
+            // Assert
+            Assert.Equal(newGenre, movie.Genre);
         }
     }
 }
