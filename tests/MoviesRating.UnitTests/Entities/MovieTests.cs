@@ -107,6 +107,25 @@ namespace MoviesRating.UnitTests.Entities
         }
 
         [Fact]
+        public void CreateMovie_ShouldThrowsMovieDescriptionLengthExceededException_WhenDescriptionIsTooLong()
+        {
+            // Arrange
+            var movieId = Guid.NewGuid();
+            var title = "Obecność";
+            var yearOfProduction = 2010;
+            var description = string.Join("", Enumerable.Repeat(0, 1001).Select(n => (char)new Random().Next(127)));
+            var director = new Director(Guid.NewGuid(), "James", "Wan");
+            var genre = new Genre(Guid.NewGuid(), "Horror");
+
+            // Act
+            var exception = Record.Exception(() => new Movie(movieId, title, yearOfProduction, description, director, genre));
+
+            // Assert
+            Assert.NotNull(exception);
+            Assert.IsType<MovieDescriptionLengthExceededException>(exception);
+        }
+
+        [Fact]
         public void CreateMovie_ShouldThrowsEmptyMovieDirectorException_WhenDirectorEmpty()
         {
             // Arrange
@@ -292,6 +311,27 @@ namespace MoviesRating.UnitTests.Entities
             // Assert
             Assert.NotNull(exception);
             Assert.IsType<EmptyMovieDescriptionException>(exception);
+        }
+
+        [Fact]
+        public void ChangeDescription_ShouldThrowsMovieDescriptionLengthExceededException_WhenDescriptionIsTooLong()
+        {
+            // Arrange
+            var movieId = Guid.NewGuid();
+            var title = "Obecność";
+            var yearOfProduction = 2010;
+            var description = "Jack podejmuje pracę stróża odciętego od świata hotelu Overlook. Wkrótce idylla zamienia się w koszmar.";
+            var director = new Director(Guid.NewGuid(), "James", "Wan");
+            var genre = new Genre(Guid.NewGuid(), "Horror");
+            var movie = new Movie(movieId, title, yearOfProduction, description, director, genre);
+            var newDescription = string.Join("", Enumerable.Repeat(0, 1001).Select(n => (char)new Random().Next(127)));
+
+            // Act
+            var exception = Record.Exception(() => movie.ChangeDescription(newDescription));
+
+            // Assert
+            Assert.NotNull(exception);
+            Assert.IsType<MovieDescriptionLengthExceededException>(exception);
         }
 
         [Fact]
