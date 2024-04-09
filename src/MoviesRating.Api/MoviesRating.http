@@ -101,3 +101,16 @@ Content-Type: application/json
 ###
 DELETE {{url}}/movies/{{movieId}}
 Accept: application/json
+
+###
+POST {{url}}/account/sign-up
+Accept: application/json
+Content-Type: application/json
+
+{
+  "userName": "johndoe",
+  "email": "johndoe@email.com",
+  "password": "test",
+  "fullName": "John Doe",
+  "role": "User"
+}

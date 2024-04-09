@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Identity;
 using MoviesRating.Application.Exceptions;
 using MoviesRating.Domain.Entities;
 using MoviesRating.Domain.Repositories;
@@ -14,10 +15,12 @@ namespace MoviesRating.Application.Commands.Handlers
     public class SignUpCommandHandler : IRequestHandler<SignUpCommand>
     {
         private readonly IUserRepository _userRepository;
+        private readonly IPasswordHasher<User> _passwordHasher;
 
-        public SignUpCommandHandler(IUserRepository userRepository)
+        public SignUpCommandHandler(IUserRepository userRepository, IPasswordHasher<User> passwordHasher)
         {
             _userRepository = userRepository;
+            _passwordHasher = passwordHasher;
         }
 
         public async Task Handle(SignUpCommand request, CancellationToken cancellationToken)
@@ -32,7 +35,9 @@ namespace MoviesRating.Application.Commands.Handlers
             {
                 throw new UserNameAlreadyExistException();
             }
-            var user=new User(request.UserId, request.UserName, request.Email, request.Password, request.FullName, request.Role);
+
+            var hashedPassword = _passwordHasher.HashPassword(default, request.Password);
+            var user=new User(request.UserId, request.UserName, request.Email, hashedPassword, request.FullName, request.Role);
             await _userRepository.AddAsync(user);
         }
     }
