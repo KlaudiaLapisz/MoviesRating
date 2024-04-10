@@ -114,3 +114,13 @@ Content-Type: application/json
   "fullName": "John Doe",
   "role": "User"
 }
+
+###
+POST {{url}}/account/sign-in
+Accept: application/json
+Content-Type: application/json
+
+{
+  "userName": "johndoe",  
+  "password": "test"  
+}

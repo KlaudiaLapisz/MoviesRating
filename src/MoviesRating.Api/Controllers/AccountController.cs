@@ -6,7 +6,7 @@ namespace MoviesRating.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AccountController:ControllerBase
+    public class AccountController : ControllerBase
     {
         private readonly IMediator _mediator;
 
@@ -21,6 +21,14 @@ namespace MoviesRating.Api.Controllers
             command.UserId = Guid.NewGuid();
             await _mediator.Send(command);
             return Ok();
+        }
+
+        [HttpPost("sign-in")]
+        public async Task<ActionResult> SignIn(SingInCommand command)
+        {
+            var token = await _mediator.Send(command);
+
+            return Ok(token);
         }
     }
 }
