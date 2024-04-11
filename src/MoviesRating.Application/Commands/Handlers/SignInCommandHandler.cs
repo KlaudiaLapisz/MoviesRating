@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
+using MoviesRating.Application.Auth;
 using MoviesRating.Application.DTO.Users;
 using MoviesRating.Application.Exceptions;
 using MoviesRating.Domain.Entities;
@@ -16,11 +17,13 @@ namespace MoviesRating.Application.Commands.Handlers
     {
         private readonly IUserRepository _userRepository;
         private readonly IPasswordHasher<User> _passwordHasher;
+        private readonly IAuthenticator _authenticator;
 
-        public SignInCommandHandler(IUserRepository userRepository, IPasswordHasher<User> passwordHasher)
+        public SignInCommandHandler(IUserRepository userRepository, IPasswordHasher<User> passwordHasher, IAuthenticator authenticator)
         {
             _userRepository = userRepository;
             _passwordHasher = passwordHasher;
+            _authenticator = authenticator;
         }
 
         public async Task<JsonWebTokenDto> Handle(SingInCommand request, CancellationToken cancellationToken)
@@ -37,10 +40,7 @@ namespace MoviesRating.Application.Commands.Handlers
                 throw new InvalidCredentialsException();
             }
 
-            return new JsonWebTokenDto
-            {
-                AccessToken = "Success"
-            };
+            return _authenticator.CreateToken(existingUser.UserId, existingUser.Role);
         }
     }
 }
