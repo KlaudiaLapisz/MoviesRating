@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MoviesRating.Application.Commands;
+using MoviesRating.Application.DTO.Users;
+using MoviesRating.Application.Queries;
 
 namespace MoviesRating.Api.Controllers
 {
@@ -13,6 +15,20 @@ namespace MoviesRating.Api.Controllers
         public AccountController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpGet("me")]
+        public async Task<ActionResult<UserDto>> Get()
+        {
+            if (string.IsNullOrWhiteSpace(User.Identity?.Name))
+            {
+                return NotFound();
+            }
+
+            var userId = Guid.Parse(User.Identity?.Name);
+            var user = await _mediator.Send(new GetUserByIdQuery() { UserId = userId });
+
+            return Ok(user);
         }
 
         [HttpPost("sign-up")]
