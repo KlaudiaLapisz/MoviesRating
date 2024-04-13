@@ -2,6 +2,8 @@
 @genreId=2f1b03e5-509d-458d-8ab5-ba3025b29f51
 @directorId=5a118161-f073-4852-ba67-5026e020626c
 @movieId=37e0ce2a-64e4-42a8-b8b9-2763dd6a1bf3
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5OGNlOWI5NC0zNDFkLTQ1OTMtYjM4ZS00ZDZjOGFiMTFhZWQiLCJ1bmlxdWVfbmFtZSI6Ijk4Y2U5Yjk0LTM0MWQtNDU5My1iMzhlLTRkNmM4YWIxMWFlZCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzZXIiLCJuYmYiOjE3MTMwMDc3MDAsImV4cCI6MTcxMzAxMTMwMCwiaXNzIjoibW92aWVzLXJhdGluZy1pc3N1ZXIiLCJhdWQiOiJtb3ZpZXMtcmF0aW5nLWF1ZGllbmNlIn0.D524tH85SSI8ms1Nbiiu2eQ4V59FKApva-MlZHV4CnU
+
 ###
 GET {{url}}/genres
 Accept: application/json
@@ -14,9 +16,10 @@ Accept: application/json
 POST {{url}}/genres
 Accept: application/json
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
-  "name": "komedia"
+  "name": "akcja"
 }
 
 ###
@@ -124,3 +127,7 @@ Content-Type: application/json
   "userName": "johndoe",  
   "password": "test"  
 }
+
+###
+GET {{url}}/account/me
+Authorization: Bearer {{token}}

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MoviesRating.Application.Commands;
 using MoviesRating.Application.DTO.Genres;
@@ -36,6 +37,7 @@ namespace MoviesRating.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult> Post(CreateGenreCommand command)
         {
             command.GenreId = Guid.NewGuid();
