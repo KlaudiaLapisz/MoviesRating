@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MoviesRating.Application.Commands;
 using MoviesRating.Application.DTO.Directors;
@@ -8,6 +9,7 @@ namespace MoviesRating.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize(Roles ="admin")]
     public class DirectorsController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -18,6 +20,7 @@ namespace MoviesRating.Api.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<DirectorDto>>> GetAll()
         {
             var result = await _mediator.Send(new GetAllDirectorsQuery());
@@ -25,6 +28,7 @@ namespace MoviesRating.Api.Controllers
         }
 
         [HttpGet("{id:guid}")]
+        [AllowAnonymous]
         public async Task<ActionResult<DirectorDto>> Get(Guid id)
         {
             var result = await _mediator.Send(new GetDirectorByIdQuery() { Id = id });

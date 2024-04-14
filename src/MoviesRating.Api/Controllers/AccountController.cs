@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MoviesRating.Application.Commands;
 using MoviesRating.Application.DTO.Users;
@@ -18,6 +19,7 @@ namespace MoviesRating.Api.Controllers
         }
 
         [HttpGet("me")]
+        [Authorize]
         public async Task<ActionResult<UserDto>> Get()
         {
             if (string.IsNullOrWhiteSpace(User.Identity?.Name))

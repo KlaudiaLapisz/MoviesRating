@@ -9,6 +9,7 @@ namespace MoviesRating.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize(Roles = "admin")]
     public class GenresController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -19,6 +20,7 @@ namespace MoviesRating.Api.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<GenreDto>>> GetAll()
         {
             var result = await _mediator.Send(new GetAllGenresQuery());
@@ -26,6 +28,7 @@ namespace MoviesRating.Api.Controllers
         }
 
         [HttpGet("{id:guid}")]
+        [AllowAnonymous]
         public async Task<ActionResult<GenreDto>> Get(Guid id)
         {
             var result = await _mediator.Send(new GetGenreByIdQuery() { Id = id });
