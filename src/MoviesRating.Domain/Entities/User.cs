@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MoviesRating.Domain.Entities
@@ -42,7 +43,12 @@ namespace MoviesRating.Domain.Entities
             {
                 throw new EmailLengthExceededException();
             }
-            // DOTO: Validate email format
+
+            var emailPattern = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+            if (Regex.IsMatch(email, emailPattern))
+            {
+                throw new InvalidEmailFormatException();
+            }
             Email = email;
 
             if (string.IsNullOrEmpty(password))
