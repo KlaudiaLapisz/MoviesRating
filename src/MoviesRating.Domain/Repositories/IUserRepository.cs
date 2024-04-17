@@ -12,5 +12,7 @@ namespace MoviesRating.Domain.Repositories
         Task<User> GetByEmailAsync(string email);
         Task<User> GetByUserNameAsync (string userName);
         Task AddAsync (User user);
+        Task<User> GetUserByIdAsync (Guid id);
+        Task UpdateAsync (User user);
     }
 }

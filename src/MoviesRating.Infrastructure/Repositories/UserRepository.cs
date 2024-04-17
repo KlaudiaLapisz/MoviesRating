@@ -34,5 +34,16 @@ namespace MoviesRating.Infrastructure.Repositories
         {
             return await _dbContext.Users.SingleOrDefaultAsync(x=>x.UserName == userName);
         }
+
+        public async Task<User> GetUserByIdAsync(Guid id)
+        {
+            return await _dbContext.Users.SingleOrDefaultAsync(x => x.UserId == id);
+        }
+
+        public async Task UpdateAsync(User user)
+        {
+            _dbContext.Users.Update(user);
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }

@@ -48,5 +48,14 @@ namespace MoviesRating.Api.Controllers
 
             return Ok(token);
         }
+
+        [HttpPut("{id:guid}/change-password")]
+        [Authorize]
+        public async Task<ActionResult> ChangePassword(Guid id, ChangePasswordCommand command)
+        {
+            command.UserId = id;
+            await _mediator.Send(command);
+            return Ok();
+        }
     }
 }

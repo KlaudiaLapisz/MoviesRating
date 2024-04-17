@@ -44,18 +44,15 @@ namespace MoviesRating.Domain.Entities
                 throw new EmailLengthExceededException();
             }
 
-            var emailPattern = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
-            if (Regex.IsMatch(email, emailPattern))
+            var regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+            var match = regex.Match(email);
+            if (!match.Success)
             {
                 throw new InvalidEmailFormatException();
             }
             Email = email;
 
-            if (string.IsNullOrEmpty(password))
-            {
-                throw new EmptyPasswordException();
-            }
-            Password = password;
+            ChangePassword(password);
 
             if (string.IsNullOrEmpty(fullName))
             {
@@ -72,6 +69,15 @@ namespace MoviesRating.Domain.Entities
                 throw new EmptyRoleException();
             }
             Role = role;
+        }
+
+        public void ChangePassword (string newPassword)
+        {
+            if (string.IsNullOrEmpty(newPassword))
+            {
+                throw new EmptyPasswordException();
+            }
+            Password = newPassword;
         }
     }
 }
