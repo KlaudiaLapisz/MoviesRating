@@ -1,6 +1,7 @@
 ﻿using MoviesRating.Domain.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -64,11 +65,7 @@ namespace MoviesRating.Domain.Entities
             }
             FullName = fullName;
 
-            if (string.IsNullOrEmpty(role))
-            {
-                throw new EmptyRoleException();
-            }
-            Role = role;
+            ChangeRole(role);
         }
 
         public void ChangePassword (string newPassword)
@@ -78,6 +75,15 @@ namespace MoviesRating.Domain.Entities
                 throw new EmptyPasswordException();
             }
             Password = newPassword;
+        }
+
+        public void ChangeRole (string newRole)
+        {
+            if (string.IsNullOrEmpty(newRole))
+            {
+                throw new EmptyRoleException();
+            }
+            Role = newRole;
         }
     }
 }

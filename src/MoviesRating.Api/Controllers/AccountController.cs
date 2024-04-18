@@ -57,5 +57,14 @@ namespace MoviesRating.Api.Controllers
             await _mediator.Send(command);
             return Ok();
         }
+
+        [HttpPut("{id:guid}/change-role")]
+        [Authorize(Roles = "admin")]
+        public async Task<ActionResult> ChangeRole(Guid id, ChangeRoleCommand command)
+        {
+            command.UserId = id;
+            await _mediator.Send(command);
+            return Ok();
+        }
     }
 }
