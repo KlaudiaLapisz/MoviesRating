@@ -26,49 +26,17 @@ namespace MoviesRating.Domain.Entities
             }
             UserId = userId;
 
-            if (string.IsNullOrEmpty(userName))
-            {
-                throw new EmptyUserNameException();
-            }
-            if (userName.Length > 50)
-            {
-                throw new UserNameLengthExceededException();
-            }
-            UserName = userName;
+            ChangeUserName(userName);
 
-            if (string.IsNullOrEmpty(email))
-            {
-                throw new EmptyEmailException();
-            }
-            if (email.Length > 50)
-            {
-                throw new EmailLengthExceededException();
-            }
-
-            var regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
-            var match = regex.Match(email);
-            if (!match.Success)
-            {
-                throw new InvalidEmailFormatException();
-            }
-            Email = email;
+            ChangeEmail(email);
 
             ChangePassword(password);
 
-            if (string.IsNullOrEmpty(fullName))
-            {
-                throw new EmptyFullNameException();
-            }
-            if (fullName.Length > 100)
-            {
-                throw new FullNameLengthExceededException();
-            }
-            FullName = fullName;
-
             ChangeRole(role);
+            ChangeFullName(fullName);
         }
 
-        public void ChangePassword (string newPassword)
+        public void ChangePassword(string newPassword)
         {
             if (string.IsNullOrEmpty(newPassword))
             {
@@ -77,13 +45,59 @@ namespace MoviesRating.Domain.Entities
             Password = newPassword;
         }
 
-        public void ChangeRole (string newRole)
+        public void ChangeRole(string newRole)
         {
             if (string.IsNullOrEmpty(newRole))
             {
                 throw new EmptyRoleException();
             }
             Role = newRole;
+        }
+
+        public void ChangeUserName(string newUserName)
+        {
+            if (string.IsNullOrEmpty(newUserName))
+            {
+                throw new EmptyUserNameException();
+            }
+            if (newUserName.Length > 50)
+            {
+                throw new UserNameLengthExceededException();
+            }
+            UserName = newUserName;
+        }
+
+        public void ChangeEmail(string newEmail)
+        {
+            if (string.IsNullOrEmpty(newEmail))
+            {
+                throw new EmptyEmailException();
+            }
+            if (newEmail.Length > 50)
+            {
+                throw new EmailLengthExceededException();
+            }
+            var regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+            var match = regex.Match(newEmail);
+            if (!match.Success)
+            {
+                throw new InvalidEmailFormatException();
+            }
+            Email = newEmail;
+        }
+
+        public void ChangeFullName(string newFullName)
+        {
+            if (string.IsNullOrEmpty(newFullName))
+            {
+                throw new EmptyFullNameException();
+            }
+            if (newFullName.Length > 100)
+            {
+                throw new FullNameLengthExceededException();
+            }
+            FullName = newFullName;
+
         }
     }
 }

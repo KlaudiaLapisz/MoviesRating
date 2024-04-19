@@ -66,5 +66,14 @@ namespace MoviesRating.Api.Controllers
             await _mediator.Send(command);
             return Ok();
         }
+
+        [HttpPut("{id:guid}/edit-user")]
+        [Authorize]
+        public async Task<ActionResult> EditUser(Guid id, EditUserCommand command)
+        {
+            command.UserId = id;
+            await _mediator.Send(command);
+            return Ok();
+        }
     }
 }
