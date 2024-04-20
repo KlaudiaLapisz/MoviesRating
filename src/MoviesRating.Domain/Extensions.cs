@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using MoviesRating.Domain.Factories;
 
 namespace MoviesRating.Domain
 {
@@ -6,6 +7,8 @@ namespace MoviesRating.Domain
     {
         public static IServiceCollection AddDomain(this IServiceCollection services)
         {
+            services.AddScoped<IGenreFactory, GenreFactory>();
+
             return services;
         }
     }

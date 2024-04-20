@@ -2,7 +2,7 @@
 @genreId=2f1b03e5-509d-458d-8ab5-ba3025b29f51
 @directorId=5a118161-f073-4852-ba67-5026e020626c
 @movieId=37e0ce2a-64e4-42a8-b8b9-2763dd6a1bf3
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyOWVhZGE1ZS0zMjRiLTRiNWItOGFlMy04YWFkMmExNTgxNzIiLCJ1bmlxdWVfbmFtZSI6IjI5ZWFkYTVlLTMyNGItNGI1Yi04YWUzLThhYWQyYTE1ODE3MiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzZXIiLCJuYmYiOjE3MTM1MTU4NzMsImV4cCI6MTcxMzUxOTQ3MywiaXNzIjoibW92aWVzLXJhdGluZy1pc3N1ZXIiLCJhdWQiOiJtb3ZpZXMtcmF0aW5nLWF1ZGllbmNlIn0.s-Zh9fRWyCfcb3o2dS5TCP-9Krm2PhAFyFzOcH3RQ-o
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NzczZTYyYi0zM2RlLTRhMTItYWQzMi0yOWQ4YTQ3MWNkMjQiLCJ1bmlxdWVfbmFtZSI6IjQ3NzNlNjJiLTMzZGUtNGExMi1hZDMyLTI5ZDhhNDcxY2QyNCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwibmJmIjoxNzEzNjExMjkzLCJleHAiOjE3MTM2MTQ4OTMsImlzcyI6Im1vdmllcy1yYXRpbmctaXNzdWVyIiwiYXVkIjoibW92aWVzLXJhdGluZy1hdWRpZW5jZSJ9.SV5b9yJBXLcrr_gZR0FrugoCgL-sO1w2A5EWeZcKx-w
 @userId=29eada5e-324b-4b5b-8ae3-8aad2a158172
 
 ###
@@ -20,7 +20,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "name": "akcja"
+  "name": "dramat"
 }
 
 ###
@@ -112,11 +112,11 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "userName": "abc",
-  "email": "abc@email.com",
+  "userName": "administrator",
+  "email": "administrator@email.com",
   "password": "test",
-  "fullName": "Mary Key",
-  "role": "User"
+  "fullName": "Administrator Systemu",
+  "role": "admin"
 }
 
 ###
@@ -125,7 +125,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "userName": "abc",  
+  "userName": "administrator",  
   "password": "test"  
 }
 

@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using MoviesRating.Application.Exceptions;
 using MoviesRating.Domain.Entities;
+using MoviesRating.Domain.Factories;
 using MoviesRating.Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,12 @@ namespace MoviesRating.Application.Commands.Handlers
     internal class CreateGenreCommandHandler : IRequestHandler<CreateGenreCommand>
     {
         private readonly IGenreRepository _genreRepository;
+        private readonly IGenreFactory _genreFactory;
 
-        public CreateGenreCommandHandler(IGenreRepository genreRepository)
+        public CreateGenreCommandHandler(IGenreRepository genreRepository, IGenreFactory genreFactory)
         {
             _genreRepository = genreRepository;
+            _genreFactory = genreFactory;
         }
 
         public async Task Handle(CreateGenreCommand request, CancellationToken cancellationToken)
@@ -27,7 +30,7 @@ namespace MoviesRating.Application.Commands.Handlers
                 throw new GenreExistException();
             }
 
-            var genre = new Genre(request.GenreId, request.Name);
+            var genre = _genreFactory.CreateGenre(request.GenreId, request.Name);
             await _genreRepository.AddAsync(genre);
         }
     }

@@ -14,7 +14,7 @@ namespace MoviesRating.Domain.Entities
 
         }
 
-        public Genre(Guid genreId, string name)
+        internal Genre(Guid genreId, string name)
         {
             if (genreId == Guid.Empty)
             {
