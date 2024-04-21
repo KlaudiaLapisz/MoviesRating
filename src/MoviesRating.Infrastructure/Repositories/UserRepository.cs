@@ -45,5 +45,11 @@ namespace MoviesRating.Infrastructure.Repositories
             _dbContext.Users.Update(user);
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task DeleteAsync(User user)
+        {
+            _dbContext.Users.Remove(user);
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }

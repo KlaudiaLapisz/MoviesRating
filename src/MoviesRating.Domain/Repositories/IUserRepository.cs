@@ -14,5 +14,6 @@ namespace MoviesRating.Domain.Repositories
         Task AddAsync (User user);
         Task<User> GetUserByIdAsync (Guid id);
         Task UpdateAsync (User user);
+        Task DeleteAsync (User user);
     }
 }

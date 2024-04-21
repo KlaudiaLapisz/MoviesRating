@@ -75,5 +75,14 @@ namespace MoviesRating.Api.Controllers
             await _mediator.Send(command);
             return Ok();
         }
+
+        [HttpDelete("{id:guid}")]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            var command = new DeleteUserCommand { UserId = id };
+            await _mediator.Send(command);
+
+            return NoContent();
+        }
     }
 }
