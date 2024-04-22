@@ -8,7 +8,8 @@ namespace MoviesRating.Domain
         public static IServiceCollection AddDomain(this IServiceCollection services)
         {
             services.AddScoped<IGenreFactory, GenreFactory>();
-
+            services.AddScoped<IDirectorFactory, DirectorFactory>();
+            
             return services;
         }
     }

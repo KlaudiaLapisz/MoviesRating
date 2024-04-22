@@ -15,7 +15,7 @@ namespace MoviesRating.Domain.Entities
 
         }
 
-        public Director(Guid directorId, string firstName, string lastName)
+        internal Director(Guid directorId, string firstName, string lastName)
         {
             if (directorId == Guid.Empty)
             {

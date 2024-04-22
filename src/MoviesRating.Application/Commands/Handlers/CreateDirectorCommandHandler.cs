@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using MoviesRating.Application.Exceptions;
 using MoviesRating.Domain.Entities;
+using MoviesRating.Domain.Factories;
 using MoviesRating.Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,12 @@ namespace MoviesRating.Application.Commands.Handlers
     internal class CreateDirectorCommandHandler : IRequestHandler<CreateDirectorCommand>
     {
         private readonly IDirectorRepository _directorRepository;
+        private readonly IDirectorFactory _directorFactory;
 
-        public CreateDirectorCommandHandler(IDirectorRepository directorRepository)
+        public CreateDirectorCommandHandler(IDirectorRepository directorRepository, IDirectorFactory directorFactory)
         {
             _directorRepository = directorRepository;
+            _directorFactory = directorFactory;
         }
 
         public async Task Handle(CreateDirectorCommand request, CancellationToken cancellationToken)
@@ -27,7 +30,7 @@ namespace MoviesRating.Application.Commands.Handlers
                 throw new DirectorExistException();
             }
 
-            var director = new Director(Guid.NewGuid(), request.FirstName, request.LastName);
+            var director = _directorFactory.CreateDirector(request.DirectorId, request.FirstName, request.LastName);
             await _directorRepository.AddAsync(director);           
         }
     }
