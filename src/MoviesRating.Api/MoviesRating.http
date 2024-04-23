@@ -6,7 +6,7 @@
 @userId=29eada5e-324b-4b5b-8ae3-8aad2a158172
 
 ###
-GET {{url}}/genres
+GET {{url}}/genres?PageSize=3&PageNumber=1
 Accept: application/json
 
 ###

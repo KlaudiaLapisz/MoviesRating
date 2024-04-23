@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MoviesRating.Application.DTO.Genres;
 using MoviesRating.Application.Queries;
+using MoviesRating.Application.Queries.Shared;
 using MoviesRating.Infrastructure.DAL;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace MoviesRating.Infrastructure.Queries.Handlers
 {
-    internal class GetAllGenresQueryHandler : IRequestHandler<GetAllGenresQuery, IEnumerable<GenreDto>>
+    internal class GetAllGenresQueryHandler : IRequestHandler<GetAllGenresQuery, PagedList<GenreDto>>
     {
         private readonly MoviesRatingDbContext _dbContext;
 
@@ -20,13 +21,28 @@ namespace MoviesRating.Infrastructure.Queries.Handlers
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<GenreDto>> Handle(GetAllGenresQuery request, CancellationToken cancellationToken)
+        public async Task<PagedList<GenreDto>> Handle(GetAllGenresQuery request, CancellationToken cancellationToken)
         {
-            return await _dbContext.Genres.Select(x => new GenreDto
+            var skipCount = (request.PageNumber - 1) * request.PageSize;
+            var count = await _dbContext.Genres.CountAsync();
+            var totalPageNumber = (int)Math.Ceiling(count / (double)request.PageSize);
+            var items = await _dbContext.Genres
+                .OrderBy(x => x.Name)
+                .Skip(skipCount)
+                .Take(request.PageSize)
+                .Select(x => new GenreDto
+                {
+                    GenreId = x.GenreId,
+                    Name = x.Name,
+                }).ToListAsync();
+            
+            return new PagedList<GenreDto>
             {
-                GenreId = x.GenreId,
-                Name = x.Name,
-            }).ToListAsync();
+                PageNumber = request.PageNumber,
+                PageSize = request.PageSize,
+                TotalPageNumber = totalPageNumber,
+                Items = items
+            };
         }
     }
 }

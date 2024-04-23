@@ -21,9 +21,9 @@ namespace MoviesRating.Api.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult<IEnumerable<GenreDto>>> GetAll()
+        public async Task<ActionResult<IEnumerable<GenreDto>>> GetAll([FromQuery]GetAllGenresQuery query)
         {
-            var result = await _mediator.Send(new GetAllGenresQuery());
+            var result = await _mediator.Send(query);
             return Ok(result);
         }
 
