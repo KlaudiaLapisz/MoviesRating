@@ -37,7 +37,7 @@ DELETE {{url}}/genres/{{genreId}}
 Accept: application/json
 
 ###
-GET {{url}}/directors
+GET {{url}}/directors?PageSize=3&PageNumber=1
 Accept: application/json
 
 ###
