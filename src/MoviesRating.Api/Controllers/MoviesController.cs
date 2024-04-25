@@ -20,9 +20,9 @@ namespace MoviesRating.Api.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult<IEnumerable<MovieDto>>> GetAll()
+        public async Task<ActionResult<IEnumerable<MovieDto>>> GetAll([FromQuery]GetAllMoviesQuery query)
         {
-            var result = await _mediator.Send(new GetAllMoviesQuery());
+            var result = await _mediator.Send(query);
             return Ok(result);
         }
 

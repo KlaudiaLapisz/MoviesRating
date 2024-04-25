@@ -70,7 +70,7 @@ DELETE {{url}}/directors/{{directorId}}
 Accept: application/json
 
 ###
-GET {{url}}/movies
+GET {{url}}/movies?PageSize=3&PageNumber=1
 Accept: application/json
 
 ###
