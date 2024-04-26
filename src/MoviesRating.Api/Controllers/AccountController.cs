@@ -18,6 +18,14 @@ namespace MoviesRating.Api.Controllers
             _mediator = mediator;
         }
 
+        [HttpGet]
+        [Authorize(Roles = "admin")]
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetAll([FromQuery]GetAllUsersQuery query)
+        {
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
         [HttpGet("me")]
         [Authorize]
         public async Task<ActionResult<UserDto>> Get()
