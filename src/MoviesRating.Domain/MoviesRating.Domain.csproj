@@ -10,7 +10,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<InternalsVisibleTo Include="MoviesRating.UnitTests"/>
+		<InternalsVisibleTo Include="MoviesRating.UnitTests" />
 	</ItemGroup>
 
 </Project>

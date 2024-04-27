@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using MoviesRating.Application.Exceptions;
+using MoviesRating.Domain.Builders;
 using MoviesRating.Domain.Entities;
 using MoviesRating.Domain.Repositories;
 using System;
@@ -44,7 +45,14 @@ namespace MoviesRating.Application.Commands.Handlers
                 throw new GenreDoesNotExistException();
             }
 
-            var movie = new Movie(request.MovieId, request.Title, request.YearOfProduction, request.Description, director, genre);
+            var movieBuilder = new MovieBuilder();
+            movieBuilder.AddMovieId(request.MovieId)
+                .AddTitle(request.Title)
+                .AddYearOfProduction(request.YearOfProduction)
+                .AddDescription(request.Description)
+                .AddDirector(director)
+                .AddGenre(genre);
+            var movie = movieBuilder.Create();
             await _movieRepository.AddAsync(movie);            
         }
     }
