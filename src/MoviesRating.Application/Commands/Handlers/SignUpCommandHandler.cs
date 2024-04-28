@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
 using MoviesRating.Application.Exceptions;
+using MoviesRating.Domain.Builders;
 using MoviesRating.Domain.Entities;
 using MoviesRating.Domain.Repositories;
 using System;
@@ -37,7 +38,14 @@ namespace MoviesRating.Application.Commands.Handlers
             }
 
             var hashedPassword = _passwordHasher.HashPassword(default, request.Password);
-            var user=new User(request.UserId, request.UserName, request.Email, hashedPassword, request.FullName, request.Role);
+            var builder= new UserBuilder();
+            builder.AddUserId(request.UserId)
+                .AddUserName(request.UserName)
+                .AddEmail(request.Email)
+                .AddPassword(hashedPassword)
+                .AddFullName(request.FullName)
+                .AddRole(request.Role);
+            var user = builder.Create();           
             await _userRepository.AddAsync(user);
         }
     }
