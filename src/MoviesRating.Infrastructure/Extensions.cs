@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using MoviesRating.Domain.Repositories;
 using MoviesRating.Infrastructure.DAL;
 using MoviesRating.Infrastructure.Exceptions;
+using MoviesRating.Infrastructure.Logging;
 using MoviesRating.Infrastructure.Repositories;
 using System.Text;
 
@@ -24,6 +25,7 @@ namespace MoviesRating.Infrastructure
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddSingleton<ErrorHandlingMiddleware>();
+            services.AddSingleton<LoggingMiddleware> ();
             var assembly = typeof(Extensions).Assembly;
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assembly));
 
@@ -55,6 +57,7 @@ namespace MoviesRating.Infrastructure
             app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseMiddleware<LoggingMiddleware>();
 
             return app;
         }
