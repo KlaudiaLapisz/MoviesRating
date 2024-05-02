@@ -15,8 +15,13 @@ namespace MoviesRating.Domain.Entities
         public User User { get; private set; }
         public Movie Movie { get; private set; }
 
-        public Rate (Guid id, int value, User user, Movie movie)
+        private Rate()
         {
+
+        }
+
+        public Rate (Guid id, int value, User user, Movie movie)
+        {           
             Id = id;
             Value = value;
             User = user;

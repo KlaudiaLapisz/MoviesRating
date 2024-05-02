@@ -2,7 +2,7 @@
 @genreId=2f1b03e5-509d-458d-8ab5-ba3025b29f51
 @directorId=5a118161-f073-4852-ba67-5026e020626c
 @movieId=37e0ce2a-64e4-42a8-b8b9-2763dd6a1bf3
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NzczZTYyYi0zM2RlLTRhMTItYWQzMi0yOWQ4YTQ3MWNkMjQiLCJ1bmlxdWVfbmFtZSI6IjQ3NzNlNjJiLTMzZGUtNGExMi1hZDMyLTI5ZDhhNDcxY2QyNCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwibmJmIjoxNzE0MTIxMDY0LCJleHAiOjE3MTQxMjQ2NjQsImlzcyI6Im1vdmllcy1yYXRpbmctaXNzdWVyIiwiYXVkIjoibW92aWVzLXJhdGluZy1hdWRpZW5jZSJ9.WxS7XdVU3MXkJtTrbLyIIh1aZ6hsrUSbvC-36cqNGv8
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NzczZTYyYi0zM2RlLTRhMTItYWQzMi0yOWQ4YTQ3MWNkMjQiLCJ1bmlxdWVfbmFtZSI6IjQ3NzNlNjJiLTMzZGUtNGExMi1hZDMyLTI5ZDhhNDcxY2QyNCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwibmJmIjoxNzE0NjQwMjY4LCJleHAiOjE3MTQ2NDM4NjgsImlzcyI6Im1vdmllcy1yYXRpbmctaXNzdWVyIiwiYXVkIjoibW92aWVzLXJhdGluZy1hdWRpZW5jZSJ9.2PFb19uffbBYZdCuF71doiJ-sw5f8MHc5ZcqVKnKZa0
 @userId=f4b1444c-d43d-4b67-93d7-613efffc1968
 
 ###
@@ -81,11 +81,12 @@ Accept: application/json
 POST {{url}}/movies
 Accept: application/json
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
-  "title": "Obecnoœæ",
-  "yearofproduction": "2010",
-  "description": "A family looks to prevent evil spirits from trapping their comatose child in a realm called The Further.",
+  "title": "Obecnoœæ 2",
+  "yearofproduction": "2016",
+  "description": "Lorraine i Ed Warren udaj¹ siê do pó³nocnej czêœci Londynu, aby pomóc samotnej matce wychowuj¹cej czwórkê dzieci, której dom jest nawiedzany przez z³oœliwe duchy.",
   "genreId": "56c49023-b28d-4d1b-adbf-b40b635553bc",
   "directorId": "ec172fae-7eee-458e-bc4b-da6c1ec1f0c2"
 }
@@ -170,3 +171,14 @@ Authorization: Bearer {{token}}
 GET {{url}}/account?PageSize=3&PageNumber=1
 Accept: application/json
 Authorization: Bearer {{token}}
+
+###
+POST {{url}}/rates
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "movieId": "64733dae-0478-4561-b2be-d69b2cff1dd4",
+  "value": 9 
+}

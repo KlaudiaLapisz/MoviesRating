@@ -8,11 +8,11 @@ namespace MoviesRating.Api.Controllers
     [ApiController]
     [Route("[controller]")]
     [Authorize]
-    public class RateController:ControllerBase
+    public class RatesController:ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public RateController(IMediator mediator)
+        public RatesController(IMediator mediator)
         {
             _mediator = mediator;
         }

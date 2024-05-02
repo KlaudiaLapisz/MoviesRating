@@ -17,6 +17,12 @@ namespace MoviesRating.Domain.Entities
         public string Password { get; set; }
         public string FullName { get; set; }
         public string Role { get; set; }
+        public ICollection<Rate> Rates { get; set; }
+
+        private User()
+        {
+
+        }
 
         public User(Guid userId, string userName, string email, string password, string fullName, string role)
         {

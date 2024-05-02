@@ -13,6 +13,7 @@ namespace MoviesRating.Domain.Entities
 
         public Director Director { get; private set; }
         public Genre Genre { get; private set; }
+        public ICollection<Rate> Rates { get; set; }
 
         private Movie()
         {
