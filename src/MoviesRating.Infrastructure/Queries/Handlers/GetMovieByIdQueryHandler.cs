@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Azure.Core;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MoviesRating.Application.DTO.Movies;
 using MoviesRating.Application.Queries;
@@ -22,11 +23,6 @@ namespace MoviesRating.Infrastructure.Queries.Handlers
 
         public async Task<MovieDto> Handle(GetMovieByIdQuery request, CancellationToken cancellationToken)
         {
-            var rates = _dbContext.Rates.Where(x => x.MovieId == request.Id).ToList();
-            var sum = rates.Sum(x => x.Value);
-            var count = rates.Count();
-            var avg = count == 0 ? 0 : Math.Round((double)sum / count, 2);
-
             var movie = await _dbContext.Movies.Select(x => new MovieDto
             {
                 MovieId = x.MovieId,
@@ -43,8 +39,16 @@ namespace MoviesRating.Infrastructure.Queries.Handlers
                     LastName = x.Director.LastName
                 }
             }).SingleOrDefaultAsync(x => x.MovieId == request.Id);
-            movie.Rate = avg;
+            movie.Rate = GetRate(request.Id);
             return movie;
+        }
+
+        private double GetRate(Guid movieId)
+        {
+            var rates = _dbContext.Rates.Where(x => x.MovieId == movieId).ToList();
+            var sum = rates.Sum(x => x.Value);
+            var count = rates.Count();
+            return count == 0 ? 0 : Math.Round((double)sum / count, 2);
         }
     }
 }
