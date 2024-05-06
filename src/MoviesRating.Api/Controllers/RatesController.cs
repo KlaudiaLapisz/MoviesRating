@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MoviesRating.Application.Commands;
+using MoviesRating.Application.Queries;
 
 namespace MoviesRating.Api.Controllers
 {
@@ -27,6 +28,13 @@ namespace MoviesRating.Api.Controllers
             await _mediator.Send(command);
 
             return Ok();
+        }
+
+        [HttpGet("movies")]
+        public async Task<ActionResult> GetTopMovies()
+        {
+            var result = await _mediator.Send(new GetTopMoviesQuery());
+            return Ok(result);
         }
     }
 }
