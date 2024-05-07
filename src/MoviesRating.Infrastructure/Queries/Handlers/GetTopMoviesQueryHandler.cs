@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MoviesRating.Application.DTO.Movies;
 using MoviesRating.Application.Queries;
+using MoviesRating.Domain.Entities;
 using MoviesRating.Infrastructure.DAL;
 using System;
 using System.Collections.Generic;
@@ -21,23 +22,39 @@ namespace MoviesRating.Infrastructure.Queries.Handlers
         }
 
         public async Task<IEnumerable<MovieDto>> Handle(GetTopMoviesQuery request, CancellationToken cancellationToken)
-        { 
-            // TODO: Add genre and director!
+        {
             var topMovies = await _dbContext.Rates
-                .GroupBy(x => x.Movie).Select(g => new
+            .GroupBy(x => new
             {
-                Movie = g.Key,
-                Rate = g.Average(x => x.Value)
-            }).OrderByDescending(x => x.Rate).Take(10)
-            .Select(x=>new MovieDto
-            {
-                MovieId = x.Movie.MovieId,
-                Title = x.Movie.Title,
-                Description = x.Movie.Description,                
-                YearOfProduction = x.Movie.YearOfProduction,
-                Rate=x.Rate
+                x.Movie.MovieId,
+                x.Movie.Title,
+                x.Movie.Description,
+                x.Movie.YearOfProduction,
+                x.Movie.Genre.Name,
+                x.Movie.Director.FirstName,
+                x.Movie.Director.LastName,
+
             })
-            .ToListAsync();
+            .Select(x => new MovieDto
+            {
+                MovieId = x.Key.MovieId,
+                Title = x.Key.Title,
+                Description = x.Key.Description,
+                YearOfProduction = x.Key.YearOfProduction,
+                Rate = x.Average(x => x.Value),
+                Genre = new MovieGenreDto
+                {
+                    GenreName = x.Key.Name
+                },
+                Director = new MovieDirectorDto
+                {
+                    FirstName = x.Key.FirstName,
+                    LastName = x.Key.LastName
+                }
+            })
+            .OrderByDescending(x => x.Rate).Take(10)
+        .ToListAsync();
+
             return topMovies;
         }
     }
