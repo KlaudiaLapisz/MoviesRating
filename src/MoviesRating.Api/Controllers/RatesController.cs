@@ -32,9 +32,9 @@ namespace MoviesRating.Api.Controllers
 
         [HttpGet("movies")]
         [AllowAnonymous]
-        public async Task<ActionResult> GetTopMovies()
+        public async Task<ActionResult> GetTopMovies([FromQuery] GetTopMoviesQuery query)
         {
-            var result = await _mediator.Send(new GetTopMoviesQuery());
+            var result = await _mediator.Send(query);
             return Ok(result);
         }
     }

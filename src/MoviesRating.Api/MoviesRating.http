@@ -2,7 +2,7 @@
 @genreId=2f1b03e5-509d-458d-8ab5-ba3025b29f51
 @directorId=5a118161-f073-4852-ba67-5026e020626c
 @movieId=37e0ce2a-64e4-42a8-b8b9-2763dd6a1bf3
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NzczZTYyYi0zM2RlLTRhMTItYWQzMi0yOWQ4YTQ3MWNkMjQiLCJ1bmlxdWVfbmFtZSI6IjQ3NzNlNjJiLTMzZGUtNGExMi1hZDMyLTI5ZDhhNDcxY2QyNCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwibmJmIjoxNzE0NjQwMjY4LCJleHAiOjE3MTQ2NDM4NjgsImlzcyI6Im1vdmllcy1yYXRpbmctaXNzdWVyIiwiYXVkIjoibW92aWVzLXJhdGluZy1hdWRpZW5jZSJ9.2PFb19uffbBYZdCuF71doiJ-sw5f8MHc5ZcqVKnKZa0
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyOWVhZGE1ZS0zMjRiLTRiNWItOGFlMy04YWFkMmExNTgxNzIiLCJ1bmlxdWVfbmFtZSI6IjI5ZWFkYTVlLTMyNGItNGI1Yi04YWUzLThhYWQyYTE1ODE3MiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzZXIiLCJuYmYiOjE3MTQ5ODQ4NzEsImV4cCI6MTcxNDk4ODQ3MSwiaXNzIjoibW92aWVzLXJhdGluZy1pc3N1ZXIiLCJhdWQiOiJtb3ZpZXMtcmF0aW5nLWF1ZGllbmNlIn0.uWv6yLd8COt0pKMAcqRYO0uMCVY_WlAZtIsp3hepdUA
 @userId=f4b1444c-d43d-4b67-93d7-613efffc1968
 
 ###
@@ -51,8 +51,8 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "firstname": "Andrzej",
-  "lastname": "Wajda"
+  "firstname": "Frank",
+  "lastname": "Darabont"
 }
 
 ###
@@ -84,11 +84,11 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "title": "Obecnoœæ 2",
-  "yearofproduction": "2016",
-  "description": "Lorraine i Ed Warren udaj¹ siê do pó³nocnej czêœci Londynu, aby pomóc samotnej matce wychowuj¹cej czwórkê dzieci, której dom jest nawiedzany przez z³oœliwe duchy.",
-  "genreId": "56c49023-b28d-4d1b-adbf-b40b635553bc",
-  "directorId": "ec172fae-7eee-458e-bc4b-da6c1ec1f0c2"
+  "title": "Panna Nikt",
+  "yearofproduction": "1996",
+  "description": "Piêtnastoletnia Marysia trafia do nowej szko³y. Pod wp³ywem kole¿anek nastolatka zaczyna siê zmieniaæ.",
+  "genreId": "bb8fa592-7565-412d-a96a-7fa476912d1d",
+  "directorId": "5cabf387-c940-46a4-b2fa-8d162dba3741"
 }
 
 ###
@@ -127,7 +127,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "userName": "administrator",  
+  "userName": "billyjoe",  
   "password": "test"  
 }
 
@@ -179,6 +179,11 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "movieId": "64733dae-0478-4561-b2be-d69b2cff1dd4",
-  "value": 9 
+  "movieId": "F13D4DB6-FE7F-4E03-8A91-86D7F4314136",
+  "value": 9
 }
+
+###
+GET {{url}}/rates/movies?GenreName=horror
+Accept: application/json
+Authorization: Bearer {{token}}

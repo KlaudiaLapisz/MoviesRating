@@ -7,6 +7,7 @@ using MoviesRating.Infrastructure.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,7 +24,13 @@ namespace MoviesRating.Infrastructure.Queries.Handlers
 
         public async Task<IEnumerable<MovieDto>> Handle(GetTopMoviesQuery request, CancellationToken cancellationToken)
         {
-            var topMovies = await _dbContext.Rates
+            var query = _dbContext.Rates.AsQueryable();
+            if (!string.IsNullOrEmpty(request.GenreName))
+            {
+                query = query.Where(x => x.Movie.Genre.Name == request.GenreName);
+            }
+
+            var topMovies = await query
             .GroupBy(x => new
             {
                 x.Movie.MovieId,

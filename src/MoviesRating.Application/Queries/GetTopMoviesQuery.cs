@@ -10,6 +10,6 @@ namespace MoviesRating.Application.Queries
 {
     public class GetTopMoviesQuery:IRequest<IEnumerable<MovieDto>>
     {
-       
+       public string GenreName { get; set; }
     }
 }
