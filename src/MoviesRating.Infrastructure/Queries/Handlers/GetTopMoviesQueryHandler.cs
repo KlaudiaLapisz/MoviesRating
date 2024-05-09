@@ -59,7 +59,7 @@ namespace MoviesRating.Infrastructure.Queries.Handlers
                     LastName = x.Key.LastName
                 }
             })
-            .OrderByDescending(x => x.Rate).Take(10)
+            .OrderByDescending(x => x.Rate).Take(request.TopCount)
         .ToListAsync();
 
             return topMovies;

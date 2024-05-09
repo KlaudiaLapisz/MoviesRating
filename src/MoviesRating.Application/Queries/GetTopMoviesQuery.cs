@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace MoviesRating.Application.Queries
 {
-    public class GetTopMoviesQuery:IRequest<IEnumerable<MovieDto>>
+    public class GetTopMoviesQuery : IRequest<IEnumerable<MovieDto>>
     {
-       public string GenreName { get; set; }
+        public string GenreName { get; set; }
+        public int TopCount { get; set; } = 10;
     }
 }
