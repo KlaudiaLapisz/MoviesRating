@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using MoviesRating.Domain.Repositories;
 using MoviesRating.Infrastructure.DAL;
 using MoviesRating.Infrastructure.Exceptions;
@@ -49,6 +50,15 @@ namespace MoviesRating.Infrastructure
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey))
                 };
             });
+            services.AddSwaggerGen(swagger =>
+            {
+                swagger.EnableAnnotations();
+                swagger.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "MoviesRating API",
+                    Version = "v1"
+                });
+            });
 
             return services;
         }
@@ -56,6 +66,12 @@ namespace MoviesRating.Infrastructure
         public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
         {
             app.UseMiddleware<ErrorHandlingMiddleware>();
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MoviesRating API");
+                c.RoutePrefix = "docs";
+            });
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseMiddleware<LoggingMiddleware>();

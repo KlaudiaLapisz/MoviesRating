@@ -184,6 +184,6 @@ Authorization: Bearer {{token}}
 }
 
 ###
-GET {{url}}/rates/movies?GenreName=horror
+GET {{url}}/rates/movies?GenreName=horror&TopCount=5
 Accept: application/json
 Authorization: Bearer {{token}}

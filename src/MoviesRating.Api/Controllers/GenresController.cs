@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MoviesRating.Application.Commands;
 using MoviesRating.Application.DTO.Genres;
 using MoviesRating.Application.Queries;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace MoviesRating.Api.Controllers
 {
@@ -29,6 +30,9 @@ namespace MoviesRating.Api.Controllers
 
         [HttpGet("{id:guid}")]
         [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [SwaggerOperation("Get genre details by id")]
         public async Task<ActionResult<GenreDto>> Get(Guid id)
         {
             var result = await _mediator.Send(new GetGenreByIdQuery() { Id = id });
