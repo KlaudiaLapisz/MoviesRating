@@ -22,6 +22,8 @@ namespace MoviesRating.Api.Controllers
 
         [HttpGet]
         [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [SwaggerOperation("Get genres list")]
         public async Task<ActionResult<IEnumerable<GenreDto>>> GetAll([FromQuery]GetAllGenresQuery query)
         {
             var result = await _mediator.Send(query);
@@ -44,7 +46,10 @@ namespace MoviesRating.Api.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [SwaggerOperation("Create new genre")]
         public async Task<ActionResult> Post(CreateGenreCommand command)
         {
             command.GenreId = Guid.NewGuid();
@@ -54,6 +59,10 @@ namespace MoviesRating.Api.Controllers
         }
 
         [HttpPut("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [SwaggerOperation("Update existing genre")]
         public async Task<ActionResult> Put(Guid id, UpdateGenreCommand command)
         {
             command.GenreId = id;
@@ -63,6 +72,10 @@ namespace MoviesRating.Api.Controllers
         }
 
         [HttpDelete("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [SwaggerOperation("Delete genre")]
         public async Task<ActionResult> Delete(Guid id)
         {
             var command = new DeleteGenreCommand { GenreId = id };

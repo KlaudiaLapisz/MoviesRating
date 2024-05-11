@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MoviesRating.Application.Commands;
 using MoviesRating.Application.DTO.Directors;
 using MoviesRating.Application.Queries;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace MoviesRating.Api.Controllers
 {
@@ -21,6 +22,8 @@ namespace MoviesRating.Api.Controllers
 
         [HttpGet]
         [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [SwaggerOperation("Get directors list")]
         public async Task<ActionResult<IEnumerable<DirectorDto>>> GetAll([FromQuery]GetAllDirectorsQuery query)
         {
             var result = await _mediator.Send(query);
@@ -29,6 +32,9 @@ namespace MoviesRating.Api.Controllers
 
         [HttpGet("{id:guid}")]
         [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [SwaggerOperation("Get director details by id")]
         public async Task<ActionResult<DirectorDto>> Get(Guid id)
         {
             var result = await _mediator.Send(new GetDirectorByIdQuery() { Id = id });
@@ -40,6 +46,10 @@ namespace MoviesRating.Api.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [SwaggerOperation("Create new director")]
         public async Task<ActionResult> Post(CreateDirectorCommand command)
         {
             command.DirectorId = Guid.NewGuid();
@@ -49,6 +59,10 @@ namespace MoviesRating.Api.Controllers
         }
 
         [HttpPut("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [SwaggerOperation("Update existing director")]
         public async Task<ActionResult> Put(Guid id, UpdateDirectorCommand command)
         {
             command.DirectorId = id;
@@ -58,6 +72,10 @@ namespace MoviesRating.Api.Controllers
         }
 
         [HttpDelete("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [SwaggerOperation("Delete director")]
         public async Task<ActionResult> Delete(Guid id)
         {
             var command = new DeleteDirectorCommand { DirectorId = id };
