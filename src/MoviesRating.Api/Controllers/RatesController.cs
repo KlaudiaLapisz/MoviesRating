@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MoviesRating.Application.Commands;
 using MoviesRating.Application.Queries;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace MoviesRating.Api.Controllers
 {
@@ -19,6 +20,10 @@ namespace MoviesRating.Api.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [SwaggerOperation("Add a rating")]
         public async Task<ActionResult> Post(RateMovieCommand command)
         {
             var userId = Guid.Parse(User.Identity?.Name);
@@ -32,6 +37,9 @@ namespace MoviesRating.Api.Controllers
 
         [HttpGet("movies")]
         [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [SwaggerOperation("Get a ranking of top films")]
         public async Task<ActionResult> GetTopMovies([FromQuery] GetTopMoviesQuery query)
         {
             var result = await _mediator.Send(query);

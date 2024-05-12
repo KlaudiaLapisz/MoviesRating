@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MoviesRating.Application.Commands;
 using MoviesRating.Application.DTO.Users;
 using MoviesRating.Application.Queries;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace MoviesRating.Api.Controllers
 {
@@ -20,6 +21,9 @@ namespace MoviesRating.Api.Controllers
 
         [HttpGet]
         [Authorize(Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [SwaggerOperation("Get users list")]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetAll([FromQuery]GetAllUsersQuery query)
         {
             var result = await _mediator.Send(query);
@@ -28,6 +32,10 @@ namespace MoviesRating.Api.Controllers
 
         [HttpGet("me")]
         [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [SwaggerOperation("Return details off current logged in user")]
         public async Task<ActionResult<UserDto>> Get()
         {
             if (string.IsNullOrWhiteSpace(User.Identity?.Name))
@@ -42,6 +50,9 @@ namespace MoviesRating.Api.Controllers
         }
 
         [HttpPost("sign-up")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [SwaggerOperation("Registration of new user")]
         public async Task<ActionResult> SignUp(SignUpCommand command)
         {
             command.UserId = Guid.NewGuid();
@@ -50,6 +61,9 @@ namespace MoviesRating.Api.Controllers
         }
 
         [HttpPost("sign-in")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [SwaggerOperation("User login")]
         public async Task<ActionResult> SignIn(SingInCommand command)
         {
             var token = await _mediator.Send(command);
@@ -59,6 +73,10 @@ namespace MoviesRating.Api.Controllers
 
         [HttpPut("{id:guid}/change-password")]
         [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [SwaggerOperation("Change of user password")]
         public async Task<ActionResult> ChangePassword(Guid id, ChangePasswordCommand command)
         {
             command.UserId = id;
@@ -68,6 +86,10 @@ namespace MoviesRating.Api.Controllers
 
         [HttpPut("{id:guid}/change-role")]
         [Authorize(Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [SwaggerOperation("Change of user role")]
         public async Task<ActionResult> ChangeRole(Guid id, ChangeRoleCommand command)
         {
             command.UserId = id;
@@ -77,6 +99,10 @@ namespace MoviesRating.Api.Controllers
 
         [HttpPut("{id:guid}/edit-user")]
         [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [SwaggerOperation("Update user data")]
         public async Task<ActionResult> EditUser(Guid id, EditUserCommand command)
         {
             command.UserId = id;
@@ -85,6 +111,11 @@ namespace MoviesRating.Api.Controllers
         }
 
         [HttpDelete("{id:guid}")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [SwaggerOperation("Delete user")]
         public async Task<ActionResult> Delete(Guid id)
         {
             var command = new DeleteUserCommand { UserId = id };
