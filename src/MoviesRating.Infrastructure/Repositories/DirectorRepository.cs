@@ -14,37 +14,37 @@ namespace MoviesRating.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task AddAsync(Director director)
+        public async Task AddAsync(Director director, CancellationToken cancellationToken = default)
         {
-            await _dbContext.AddAsync(director);
-            await _dbContext.SaveChangesAsync();
+            await _dbContext.AddAsync(director, cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task DeleteAsync(Director director)
+        public async Task DeleteAsync(Director director, CancellationToken cancellationToken = default)
         {
             _dbContext.Remove(director);
-            await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<Director>> GetAllAsync()
+        public async Task<IEnumerable<Director>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return await _dbContext.Directors.Include(x => x.Movies).ToListAsync();
+            return await _dbContext.Directors.Include(x => x.Movies).ToListAsync(cancellationToken);
         }
 
-        public async Task<Director> GetAsync(Guid id)
+        public async Task<Director> GetAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            return await _dbContext.Directors.Include(x => x.Movies).SingleOrDefaultAsync(x => x.DirectorId == id);
+            return await _dbContext.Directors.Include(x => x.Movies).SingleOrDefaultAsync(x => x.DirectorId == id, cancellationToken);
         }
 
-        public async Task<Director> GetDirectorByFirstNameAndLastName(string firstName, string lastName)
+        public async Task<Director> GetDirectorByFirstNameAndLastName(string firstName, string lastName, CancellationToken cancellationToken = default)
         {
-            return await _dbContext.Directors.SingleOrDefaultAsync(x => x.FirstName == firstName && x.LastName == lastName);
+            return await _dbContext.Directors.SingleOrDefaultAsync(x => x.FirstName == firstName && x.LastName == lastName, cancellationToken);
         }
 
-        public async Task UpdateAsync(Director director)
+        public async Task UpdateAsync(Director director, CancellationToken cancellationToken = default)
         {
             _dbContext.Update(director);
-            await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

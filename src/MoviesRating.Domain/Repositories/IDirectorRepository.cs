@@ -4,11 +4,11 @@ namespace MoviesRating.Domain.Repositories
 {
     public interface IDirectorRepository
     {
-        Task<IEnumerable<Director>> GetAllAsync();
-        Task<Director> GetAsync(Guid id);
-        Task UpdateAsync(Director director);
-        Task AddAsync(Director director);
-        Task DeleteAsync(Director director);
-        Task<Director> GetDirectorByFirstNameAndLastName(string firstName, string lastName);
+        Task<IEnumerable<Director>> GetAllAsync(CancellationToken cancellationToken = default);
+        Task<Director> GetAsync(Guid id, CancellationToken cancellationToken = default);
+        Task UpdateAsync(Director director, CancellationToken cancellationToken = default);
+        Task AddAsync(Director director, CancellationToken cancellationToken = default);
+        Task DeleteAsync(Director director, CancellationToken cancellationToken = default);
+        Task<Director> GetDirectorByFirstNameAndLastName(string firstName, string lastName, CancellationToken cancellationToken = default);
     }
 }
