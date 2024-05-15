@@ -19,21 +19,21 @@ namespace MoviesRating.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task AddAsync(Rate rate)
+        public async Task AddAsync(Rate rate, CancellationToken cancellationToken = default)
         {
-            await _dbContext.Rates.AddAsync(rate);
-            await _dbContext.SaveChangesAsync();
+            await _dbContext.Rates.AddAsync(rate, cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<Rate> GetAsync(Guid userId, Guid movieId)
+        public async Task<Rate> GetAsync(Guid userId, Guid movieId, CancellationToken cancellationToken = default)
         {
-            return await _dbContext.Rates.SingleOrDefaultAsync(x => x.MovieId == movieId && x.UserId == userId);
+            return await _dbContext.Rates.SingleOrDefaultAsync(x => x.MovieId == movieId && x.UserId == userId, cancellationToken);
         }
 
-        public async Task UpdateAsync(Rate rate)
+        public async Task UpdateAsync(Rate rate, CancellationToken cancellationToken = default)
         {
             _dbContext.Rates.Update(rate);
-            await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }
