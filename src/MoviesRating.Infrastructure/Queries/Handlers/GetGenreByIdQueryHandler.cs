@@ -26,7 +26,7 @@ namespace MoviesRating.Infrastructure.Queries.Handlers
             {
                 GenreId = x.GenreId,
                 Name = x.Name,
-            }).SingleOrDefaultAsync(x => x.GenreId == request.Id);
+            }).SingleOrDefaultAsync(x => x.GenreId == request.Id, cancellationToken);
         }
     }
 }

@@ -24,14 +24,14 @@ namespace MoviesRating.Application.Commands.Handlers
 
         public async Task Handle(CreateGenreCommand request, CancellationToken cancellationToken)
         {
-            var existingGenre = await _genreRepository.GetGenreByName(request.Name);
+            var existingGenre = await _genreRepository.GetGenreByName(request.Name, cancellationToken);
             if (existingGenre != null)
             {
                 throw new GenreExistException();
             }
 
             var genre = _genreFactory.CreateGenre(request.GenreId, request.Name);
-            await _genreRepository.AddAsync(genre);
+            await _genreRepository.AddAsync(genre, cancellationToken);
         }
     }
 }

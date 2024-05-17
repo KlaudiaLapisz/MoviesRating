@@ -20,20 +20,20 @@ namespace MoviesRating.Application.Commands.Handlers
 
         public async Task Handle(UpdateGenreCommand request, CancellationToken cancellationToken)
         {
-            var genre = await _genreRepository.GetAsync(request.GenreId);
+            var genre = await _genreRepository.GetAsync(request.GenreId, cancellationToken);
             if (genre == null)
             {
                 throw new GenreDoesNotExistException();
             }
 
-            var existingGenre = await _genreRepository.GetGenreByName(request.Name);
+            var existingGenre = await _genreRepository.GetGenreByName(request.Name, cancellationToken);
             if (existingGenre != null)
             {
                 throw new GenreDoesNotExistException();
             }
             genre.ChangeName(request.Name);
 
-            await _genreRepository.UpdateAsync(genre);
+            await _genreRepository.UpdateAsync(genre, cancellationToken);
         }
     }
 }
