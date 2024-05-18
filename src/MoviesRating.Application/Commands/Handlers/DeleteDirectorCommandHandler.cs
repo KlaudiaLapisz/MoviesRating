@@ -20,12 +20,12 @@ namespace MoviesRating.Application.Commands.Handlers
 
         public async Task Handle(DeleteDirectorCommand request, CancellationToken cancellationToken)
         {
-            var deleteDirector = await _directorRepository.GetAsync(request.DirectorId);
+            var deleteDirector = await _directorRepository.GetAsync(request.DirectorId, cancellationToken);
             if (deleteDirector == null)
             {
                 throw new DirectorDoesNotExistException();
             }
-            await _directorRepository.DeleteAsync(deleteDirector);
+            await _directorRepository.DeleteAsync(deleteDirector, cancellationToken);
         }
     }
 }

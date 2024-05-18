@@ -25,7 +25,7 @@ namespace MoviesRating.Infrastructure.Queries.Handlers
         public async Task<PagedList<DirectorDto>> Handle(GetAllDirectorsQuery request, CancellationToken cancellationToken)
         {
             var skipCount = (request.PageNumber - 1) * request.PageSize;
-            var count = await _dbContext.Directors.CountAsync();
+            var count = await _dbContext.Directors.CountAsync(cancellationToken);
             var totalPageNumber = (int)Math.Ceiling(count / (double)request.PageSize);
             var items = await _dbContext.Directors
                 .OrderBy(x => x.LastName)
@@ -36,7 +36,7 @@ namespace MoviesRating.Infrastructure.Queries.Handlers
                     DirectorId = x.DirectorId,
                     FirstName = x.FirstName,
                     LastName = x.LastName                   
-                }).ToListAsync();
+                }).ToListAsync(cancellationToken);
 
             return new PagedList<DirectorDto>
             {

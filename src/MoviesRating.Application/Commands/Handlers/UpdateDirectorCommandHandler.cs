@@ -20,13 +20,13 @@ namespace MoviesRating.Application.Commands.Handlers
 
         public async Task Handle(UpdateDirectorCommand request, CancellationToken cancellationToken)
         {
-            var director = await _directorRepository.GetAsync(request.DirectorId);
+            var director = await _directorRepository.GetAsync(request.DirectorId, cancellationToken);
             if (director == null)
             {
                 throw new DirectorDoesNotExistException();
             }
 
-            var existingDirector = await _directorRepository.GetDirectorByFirstNameAndLastName(request.FirstName, request.LastName);
+            var existingDirector = await _directorRepository.GetDirectorByFirstNameAndLastName(request.FirstName, request.LastName, cancellationToken);
             if (existingDirector != null)
             {
                 throw new DirectorExistException();
@@ -35,7 +35,7 @@ namespace MoviesRating.Application.Commands.Handlers
             director.ChangeFirstName(request.FirstName);
             director.ChangeLastName(request.LastName);
 
-            await _directorRepository.UpdateAsync(director);
+            await _directorRepository.UpdateAsync(director, cancellationToken);
         }
     }
 }

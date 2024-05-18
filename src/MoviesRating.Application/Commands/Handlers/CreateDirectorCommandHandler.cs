@@ -24,14 +24,14 @@ namespace MoviesRating.Application.Commands.Handlers
 
         public async Task Handle(CreateDirectorCommand request, CancellationToken cancellationToken)
         {
-            var existingDirector = await _directorRepository.GetDirectorByFirstNameAndLastName(request.FirstName, request.LastName);
+            var existingDirector = await _directorRepository.GetDirectorByFirstNameAndLastName(request.FirstName, request.LastName, cancellationToken);
             if (existingDirector != null)
             {
                 throw new DirectorExistException();
             }
 
             var director = _directorFactory.CreateDirector(request.DirectorId, request.FirstName, request.LastName);
-            await _directorRepository.AddAsync(director);           
+            await _directorRepository.AddAsync(director, cancellationToken);           
         }
     }
 }

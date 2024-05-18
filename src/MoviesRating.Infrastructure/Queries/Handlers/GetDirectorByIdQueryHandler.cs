@@ -27,7 +27,7 @@ namespace MoviesRating.Infrastructure.Queries.Handlers
                 DirectorId = x.DirectorId,
                 FirstName = x.FirstName,
                 LastName = x.LastName,
-            }).SingleOrDefaultAsync(x=>x.DirectorId==request.Id);
+            }).SingleOrDefaultAsync(x=>x.DirectorId==request.Id, cancellationToken);
         }
     }
 }
