@@ -38,7 +38,7 @@ namespace MoviesRating.Infrastructure.Queries.Handlers
                     FirstName = x.Director.FirstName,
                     LastName = x.Director.LastName
                 }
-            }).SingleOrDefaultAsync(x => x.MovieId == request.Id);
+            }).SingleOrDefaultAsync(x => x.MovieId == request.Id, cancellationToken);
             movie.Rate = GetRate(request.Id);
             return movie;
         }

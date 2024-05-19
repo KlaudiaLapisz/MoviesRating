@@ -24,25 +24,25 @@ namespace MoviesRating.Application.Commands.Handlers
 
         public async Task Handle(UpdateMovieCommand request, CancellationToken cancellationToken)
         {
-            var movie = await _movieRepository.GetAsync(request.MovieId);
+            var movie = await _movieRepository.GetAsync(request.MovieId, cancellationToken);
             if (movie == null)
             {
                 throw new MovieDoesNotExistException();
             }
 
-            var existingMovie = await _movieRepository.GetMovieByTitleAndYearOfProductionAsync(request.Title, request.YearOfProduction);
+            var existingMovie = await _movieRepository.GetMovieByTitleAndYearOfProductionAsync(request.Title, request.YearOfProduction, cancellationToken);
             if (existingMovie != null)
             {
                 throw new MovieExistException();
             }
 
-            var director = await _directorRepository.GetAsync(request.DirectorId);
+            var director = await _directorRepository.GetAsync(request.DirectorId, cancellationToken);
             if (director == null)
             {
                 throw new DirectorDoesNotExistException();
             }
 
-            var genre = await _genreRepository.GetAsync(request.GenreId);
+            var genre = await _genreRepository.GetAsync(request.GenreId, cancellationToken);
             if (genre == null)
             {
                 throw new GenreDoesNotExistException();
@@ -54,7 +54,7 @@ namespace MoviesRating.Application.Commands.Handlers
             movie.ChangeDirector(director);
             movie.ChangeGenre(genre);
 
-            await _movieRepository.UpdateAsync(movie);
+            await _movieRepository.UpdateAsync(movie, cancellationToken);
         }
     }
 }
