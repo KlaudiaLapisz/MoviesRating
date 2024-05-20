@@ -25,26 +25,26 @@ namespace MoviesRating.Application.Commands.Handlers
 
         public async Task Handle(RateMovieCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetUserByIdAsync(request.UserId);
+            var user = await _userRepository.GetUserByIdAsync(request.UserId, cancellationToken);
             if(user== null)
             {
                 throw new UserNotFoundException();
             }
-            var movie = await _movieRepository.GetAsync(request.MovieId);
+            var movie = await _movieRepository.GetAsync(request.MovieId, cancellationToken);
             if(movie== null)
             {
                 throw new MovieDoesNotExistException();
             }
-            var rate= await _ratingRepository.GetAsync(request.UserId, request.MovieId);
+            var rate= await _ratingRepository.GetAsync(request.UserId, request.MovieId, cancellationToken);
             if(rate==null)
             {
                 rate=new Rate(request.Id, request.Value, user, movie);
-                await _ratingRepository.AddAsync(rate);
+                await _ratingRepository.AddAsync(rate, cancellationToken);
             }
             else
             {
                 rate.UpdateValue(request.Value);
-                await _ratingRepository.UpdateAsync(rate);
+                await _ratingRepository.UpdateAsync(rate, cancellationToken);
             }
 
 

@@ -20,13 +20,13 @@ namespace MoviesRating.Application.Commands.Handlers
 
         public async Task Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
-            var existingUser = await _userRepository.GetUserByIdAsync(request.UserId);
+            var existingUser = await _userRepository.GetUserByIdAsync(request.UserId, cancellationToken);
             if (existingUser == null)
             {
                 throw new UserNotFoundException();
             }
 
-            await _userRepository.DeleteAsync(existingUser);
+            await _userRepository.DeleteAsync(existingUser, cancellationToken);
         }
     }
 }

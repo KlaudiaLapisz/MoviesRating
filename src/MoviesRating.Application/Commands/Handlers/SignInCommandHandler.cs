@@ -28,7 +28,7 @@ namespace MoviesRating.Application.Commands.Handlers
 
         public async Task<JsonWebTokenDto> Handle(SingInCommand request, CancellationToken cancellationToken)
         {
-            var existingUser = await _userRepository.GetByUserNameAsync(request.UserName);
+            var existingUser = await _userRepository.GetByUserNameAsync(request.UserName, cancellationToken);
             if (existingUser == null)
             {
                 throw new InvalidCredentialsException();

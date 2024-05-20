@@ -24,7 +24,7 @@ namespace MoviesRating.Application.Commands.Handlers
 
         public async Task Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetUserByIdAsync(request.UserId);
+            var user = await _userRepository.GetUserByIdAsync(request.UserId, cancellationToken);
             if(user == null)
             {
                 throw new UserNotFoundException();
@@ -32,7 +32,7 @@ namespace MoviesRating.Application.Commands.Handlers
 
             var hashedPassword = _passwordHasher.HashPassword(default, request.Password);
             user.ChangePassword(hashedPassword);
-            await _userRepository.UpdateAsync(user);
+            await _userRepository.UpdateAsync(user, cancellationToken);
         }
     }
 }

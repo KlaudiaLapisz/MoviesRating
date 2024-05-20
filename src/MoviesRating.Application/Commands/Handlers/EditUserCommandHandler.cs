@@ -20,7 +20,7 @@ namespace MoviesRating.Application.Commands.Handlers
 
         public async Task Handle(EditUserCommand request, CancellationToken cancellationToken)
         {
-           var existingUser = await _userRepository.GetUserByIdAsync(request.UserId);
+           var existingUser = await _userRepository.GetUserByIdAsync(request.UserId, cancellationToken);
             if (existingUser == null)
             {
                 throw new UserNotFoundException();
@@ -30,7 +30,7 @@ namespace MoviesRating.Application.Commands.Handlers
             existingUser.ChangeEmail(request.Email);
             existingUser.ChangeFullName(request.FullName);
 
-            await _userRepository.UpdateAsync(existingUser);
+            await _userRepository.UpdateAsync(existingUser, cancellationToken);
         }
     }
 }

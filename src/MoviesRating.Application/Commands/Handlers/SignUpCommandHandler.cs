@@ -26,12 +26,12 @@ namespace MoviesRating.Application.Commands.Handlers
 
         public async Task Handle(SignUpCommand request, CancellationToken cancellationToken)
         {
-           var existingEmail = await _userRepository.GetByEmailAsync(request.Email);
+           var existingEmail = await _userRepository.GetByEmailAsync(request.Email, cancellationToken);
             if (existingEmail != null)
             {
                 throw new EmailAlreadyExistException();
             }
-            var existingUserName= await _userRepository.GetByUserNameAsync(request.UserName);
+            var existingUserName= await _userRepository.GetByUserNameAsync(request.UserName, cancellationToken);
             if (existingUserName != null)
             {
                 throw new UserNameAlreadyExistException();
@@ -46,7 +46,7 @@ namespace MoviesRating.Application.Commands.Handlers
                 .AddFullName(request.FullName)
                 .AddRole(request.Role);
             var user = builder.Create();           
-            await _userRepository.AddAsync(user);
+            await _userRepository.AddAsync(user, cancellationToken);
         }
     }
 }

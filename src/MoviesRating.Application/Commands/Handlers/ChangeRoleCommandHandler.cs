@@ -20,13 +20,13 @@ namespace MoviesRating.Application.Commands.Handlers
 
         public async Task Handle(ChangeRoleCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetUserByIdAsync(request.UserId);
+            var user = await _userRepository.GetUserByIdAsync(request.UserId, cancellationToken);
             if (user == null)
             {
                 throw new UserNotFoundException();
             }
             user.ChangeRole(request.NewRole);
-            await _userRepository.UpdateAsync(user);
+            await _userRepository.UpdateAsync(user, cancellationToken);
         }
     }
 }

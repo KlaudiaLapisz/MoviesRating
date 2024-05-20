@@ -60,7 +60,7 @@ namespace MoviesRating.Infrastructure.Queries.Handlers
                 }
             })
             .OrderByDescending(x => x.Rate).Take(request.TopCount)
-        .ToListAsync();
+        .ToListAsync(cancellationToken);
 
             return topMovies;
         }

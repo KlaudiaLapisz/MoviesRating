@@ -22,7 +22,7 @@ namespace MoviesRating.Infrastructure.Queries.Handlers
 
         public async Task<UserDto> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
-            var user = await _dbContext.Users.SingleOrDefaultAsync(x => x.UserId == request.UserId);
+            var user = await _dbContext.Users.SingleOrDefaultAsync(x => x.UserId == request.UserId, cancellationToken);
             if (user == null)
             {
                 return null;
