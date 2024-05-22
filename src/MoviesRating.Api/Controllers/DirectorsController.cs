@@ -24,9 +24,9 @@ namespace MoviesRating.Api.Controllers
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [SwaggerOperation("Get directors list")]
-        public async Task<ActionResult<IEnumerable<DirectorDto>>> GetAll([FromQuery]GetAllDirectorsQuery query)
+        public async Task<ActionResult<IEnumerable<DirectorDto>>> GetAll([FromQuery]GetAllDirectorsQuery query, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(query);
+            var result = await _mediator.Send(query, cancellationToken);
             return Ok(result);
         }
 
@@ -35,9 +35,9 @@ namespace MoviesRating.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [SwaggerOperation("Get director details by id")]
-        public async Task<ActionResult<DirectorDto>> Get(Guid id)
+        public async Task<ActionResult<DirectorDto>> Get(Guid id, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetDirectorByIdQuery() { Id = id });
+            var result = await _mediator.Send(new GetDirectorByIdQuery() { Id = id }, cancellationToken);
             if (result == null)
             {
                 return NotFound();
@@ -50,10 +50,10 @@ namespace MoviesRating.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [SwaggerOperation("Create new director")]
-        public async Task<ActionResult> Post(CreateDirectorCommand command)
+        public async Task<ActionResult> Post(CreateDirectorCommand command, CancellationToken cancellationToken)
         {
             command.DirectorId = Guid.NewGuid();
-            await _mediator.Send(command);
+            await _mediator.Send(command, cancellationToken);
 
             return CreatedAtAction(nameof(Get), new { id = command.DirectorId }, null);
         }
@@ -63,10 +63,10 @@ namespace MoviesRating.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [SwaggerOperation("Update existing director")]
-        public async Task<ActionResult> Put(Guid id, UpdateDirectorCommand command)
+        public async Task<ActionResult> Put(Guid id, UpdateDirectorCommand command, CancellationToken cancellationToken)
         {
             command.DirectorId = id;
-            await _mediator.Send(command);
+            await _mediator.Send(command, cancellationToken);
 
             return NoContent();
         }
@@ -76,10 +76,10 @@ namespace MoviesRating.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [SwaggerOperation("Delete director")]
-        public async Task<ActionResult> Delete(Guid id)
+        public async Task<ActionResult> Delete(Guid id, CancellationToken cancellationToken)
         {
             var command = new DeleteDirectorCommand { DirectorId = id };
-            await _mediator.Send(command);
+            await _mediator.Send(command, cancellationToken);
 
             return NoContent();
         }
