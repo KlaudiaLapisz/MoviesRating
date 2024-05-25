@@ -24,13 +24,13 @@ namespace MoviesRating.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [SwaggerOperation("Add a rating")]
-        public async Task<ActionResult> Post(RateMovieCommand command)
+        public async Task<ActionResult> Post(RateMovieCommand command, CancellationToken cancellationToken)
         {
             var userId = Guid.Parse(User.Identity?.Name);
             command.Id = Guid.NewGuid();
             command.UserId = userId;
 
-            await _mediator.Send(command);
+            await _mediator.Send(command, cancellationToken);
 
             return Ok();
         }
@@ -40,9 +40,9 @@ namespace MoviesRating.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [SwaggerOperation("Get a ranking of top films")]
-        public async Task<ActionResult> GetTopMovies([FromQuery] GetTopMoviesQuery query)
+        public async Task<ActionResult> GetTopMovies([FromQuery] GetTopMoviesQuery query, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(query);
+            var result = await _mediator.Send(query, cancellationToken);
             return Ok(result);
         }
     }
