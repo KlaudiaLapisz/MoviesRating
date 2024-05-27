@@ -31,5 +31,10 @@ namespace MoviesRating.Domain.Entities
             User = user;
             Movie = movie;
         }
+
+        private FavouriteMovie()
+        {
+            
+        }
     }
 }

@@ -1,0 +1,33 @@
+﻿using Microsoft.EntityFrameworkCore;
+using MoviesRating.Domain.Entities;
+using MoviesRating.Domain.Repositories;
+using MoviesRating.Infrastructure.DAL;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MoviesRating.Infrastructure.Repositories
+{
+    internal class FavouriteMovieRepository : IFavouriteMovieRepository
+    {
+        private readonly MoviesRatingDbContext _dbContext;
+
+        public FavouriteMovieRepository(MoviesRatingDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
+        public async Task AddAsync(FavouriteMovie favouriteMovie, CancellationToken cancellationToken = default)
+        {
+            await _dbContext.AddAsync(favouriteMovie, cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
+        }
+
+        public async Task<FavouriteMovie> GetFavouriteMovie(Guid userId, Guid movieId, CancellationToken cancellationToken = default)
+        {
+            return await _dbContext.Favorites.SingleOrDefaultAsync(x => x.MovieId == movieId && x.UserId == userId, cancellationToken);
+        }
+    }
+}
