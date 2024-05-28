@@ -25,7 +25,13 @@ namespace MoviesRating.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<FavouriteMovie> GetFavouriteMovie(Guid userId, Guid movieId, CancellationToken cancellationToken = default)
+        public async Task DeleteAsync(FavouriteMovie favouriteMovie, CancellationToken cancellationToken = default)
+        {
+            _dbContext.Remove(favouriteMovie);
+            await _dbContext.SaveChangesAsync(cancellationToken);
+        }
+
+        public async Task<FavouriteMovie> GetFavouriteMovieAsync(Guid userId, Guid movieId, CancellationToken cancellationToken = default)
         {
             return await _dbContext.Favorites.SingleOrDefaultAsync(x => x.MovieId == movieId && x.UserId == userId, cancellationToken);
         }

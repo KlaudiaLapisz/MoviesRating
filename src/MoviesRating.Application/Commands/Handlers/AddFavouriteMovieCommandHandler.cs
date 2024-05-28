@@ -35,7 +35,7 @@ namespace MoviesRating.Application.Commands.Handlers
             {
                 throw new UserNotFoundException();
             }
-            var existingFavouriteMovie = await _favouriteMovieRepository.GetFavouriteMovie(request.UserId, request.MovieId, cancellationToken);
+            var existingFavouriteMovie = await _favouriteMovieRepository.GetFavouriteMovieAsync(request.UserId, request.MovieId, cancellationToken);
             if(existingFavouriteMovie!=null)
             {
                 throw new FavouriteMovieAlreadyAddedException();

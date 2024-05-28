@@ -1,8 +1,8 @@
 @url = http://localhost:5000
 @genreId=2f1b03e5-509d-458d-8ab5-ba3025b29f51
 @directorId=5a118161-f073-4852-ba67-5026e020626c
-@movieId=37e0ce2a-64e4-42a8-b8b9-2763dd6a1bf3
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyOWVhZGE1ZS0zMjRiLTRiNWItOGFlMy04YWFkMmExNTgxNzIiLCJ1bmlxdWVfbmFtZSI6IjI5ZWFkYTVlLTMyNGItNGI1Yi04YWUzLThhYWQyYTE1ODE3MiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzZXIiLCJuYmYiOjE3MTQ5ODQ4NzEsImV4cCI6MTcxNDk4ODQ3MSwiaXNzIjoibW92aWVzLXJhdGluZy1pc3N1ZXIiLCJhdWQiOiJtb3ZpZXMtcmF0aW5nLWF1ZGllbmNlIn0.uWv6yLd8COt0pKMAcqRYO0uMCVY_WlAZtIsp3hepdUA
+@movieId=F13D4DB6-FE7F-4E03-8A91-86D7F4314136
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5OGNlOWI5NC0zNDFkLTQ1OTMtYjM4ZS00ZDZjOGFiMTFhZWQiLCJ1bmlxdWVfbmFtZSI6Ijk4Y2U5Yjk0LTM0MWQtNDU5My1iMzhlLTRkNmM4YWIxMWFlZCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6InVzZXIiLCJuYmYiOjE3MTY4OTUxNjEsImV4cCI6MTcxNjg5ODc2MSwiaXNzIjoibW92aWVzLXJhdGluZy1pc3N1ZXIiLCJhdWQiOiJtb3ZpZXMtcmF0aW5nLWF1ZGllbmNlIn0.8zqQs9LQfAuNeYeHNAwYovFkSXrOwlB_KSe09_mAE_U
 @userId=f4b1444c-d43d-4b67-93d7-613efffc1968
 
 ###
@@ -114,8 +114,8 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "userName": "administrator",
-  "email": "administrator@email.com",
+  "userName": "user",
+  "email": "user@email.com",
   "password": "test",
   "fullName": "Administrator Systemu",
   "role": "admin"
@@ -127,8 +127,8 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "userName": "billyjoe",  
-  "password": "test"  
+  "userName": "johndoe",  
+  "password": "test2"  
 }
 
 ###
@@ -185,5 +185,20 @@ Authorization: Bearer {{token}}
 
 ###
 GET {{url}}/rates/movies?GenreName=horror&TopCount=5
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+POST {{url}}/favouritemovie
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+ "movieId": "F13D4DB6-FE7F-4E03-8A91-86D7F4314136"
+}
+
+###
+DELETE {{url}}/favouritemovie/{{movieId}}
 Accept: application/json
 Authorization: Bearer {{token}}
