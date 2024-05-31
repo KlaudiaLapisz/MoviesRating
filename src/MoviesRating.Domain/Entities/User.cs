@@ -19,6 +19,7 @@ namespace MoviesRating.Domain.Entities
         public string Role { get; set; }
         public ICollection<Rate> Rates { get; set; }
         public ICollection<FavouriteMovie> FavouriteMovies { get; set; }
+        public ICollection<MovieToWatch> MoviesToWatch { get; set; }
 
         private User()
         {

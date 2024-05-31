@@ -207,3 +207,13 @@ Authorization: Bearer {{token}}
 GET {{url}}/favouritemovie?PageSize=3&PageNumber=1
 Accept: application/json
 Authorization: Bearer {{token}}
+
+###
+POST {{url}}/mpoviestowatch
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+ "movieId": "64733dae-0478-4561-b2be-d69b2cff1dd4"
+}

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MoviesRating.Infrastructure.DAL;
 
@@ -11,9 +12,11 @@ using MoviesRating.Infrastructure.DAL;
 namespace MoviesRating.Infrastructure.Migrations
 {
     [DbContext(typeof(MoviesRatingDbContext))]
-    partial class MoviesRatingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240531082242_AddedMoviesToWatch")]
+    partial class AddedMoviesToWatch
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

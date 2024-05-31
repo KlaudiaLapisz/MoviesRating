@@ -11,6 +11,7 @@ namespace MoviesRating.Infrastructure.DAL
         public DbSet<User> Users { get; set; }
         public DbSet<Rate> Rates { get; set; }
         public DbSet<FavouriteMovie> Favourites { get; set; }
+        public DbSet<MovieToWatch> MoviesToWatch { get; set; }
 
         public MoviesRatingDbContext(DbContextOptions<MoviesRatingDbContext> options) : base(options)
         {
