@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MoviesRating.Application.Commands;
+using MoviesRating.Application.DTO.Movies;
+using MoviesRating.Application.Queries;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace MoviesRating.Api.Controllers
@@ -33,6 +35,16 @@ namespace MoviesRating.Api.Controllers
             return NoContent();
         }
 
-       
+        [HttpGet]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [SwaggerOperation("Get movies to watch list")]
+        public async Task<ActionResult<IEnumerable<MovieDto>>> GetAll([FromQuery] GetAllMoviesToWatchQuery query, CancellationToken cancellationToken)
+        {
+            var userId = Guid.Parse(User.Identity?.Name);
+            query.UserId = userId;
+            var result = await _mediator.Send(query, cancellationToken);
+            return Ok(result);
+        }
     }
 }

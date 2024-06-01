@@ -11,5 +11,6 @@ namespace MoviesRating.Domain.Repositories
     {
         Task AddAsync(MovieToWatch movieToWatch, CancellationToken cancellationToken = default);
         Task<MovieToWatch> GetAsync(Guid userId, Guid movieId, CancellationToken cancellationToken = default);
+        Task<IEnumerable<MovieToWatch>> GetAllAsync(CancellationToken cancellationToken = default);
     }
 }

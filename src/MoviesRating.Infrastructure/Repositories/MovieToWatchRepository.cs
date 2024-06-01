@@ -25,6 +25,13 @@ namespace MoviesRating.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<MovieToWatch>> GetAllAsync(CancellationToken cancellationToken = default)
+        {
+            return await _dbContext.MoviesToWatch
+                .Include(x => x.Movie)
+                .Include(x => x.User).ToListAsync(cancellationToken);
+        }
+
         public async Task<MovieToWatch> GetAsync(Guid userId, Guid movieId, CancellationToken cancellationToken = default)
         {
             return await _dbContext.MoviesToWatch.SingleOrDefaultAsync(x => x.UserId == userId && x.MovieId == movieId, cancellationToken);
