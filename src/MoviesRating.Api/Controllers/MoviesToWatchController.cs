@@ -46,5 +46,19 @@ namespace MoviesRating.Api.Controllers
             var result = await _mediator.Send(query, cancellationToken);
             return Ok(result);
         }
+
+        [HttpDelete("{movieId:guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [SwaggerOperation("Delete movie to watch")]
+        public async Task<ActionResult> Delete(Guid movieId, CancellationToken cancellationToken)
+        {
+            var userId = Guid.Parse(User.Identity?.Name);
+            var command = new DeleteMovieToWatchCommand { UserId = userId, MovieId = movieId };
+            await _mediator.Send(command, cancellationToken);
+
+            return NoContent();
+        }
     }
 }
