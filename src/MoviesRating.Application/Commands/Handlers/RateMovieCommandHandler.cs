@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using MoviesRating.Application.Exceptions;
+using MoviesRating.Application.Strategies;
 using MoviesRating.Domain.Entities;
 using MoviesRating.Domain.Repositories;
 using System;
@@ -15,12 +16,14 @@ namespace MoviesRating.Application.Commands.Handlers
         private readonly IUserRepository _userRepository;
         private readonly IMovieRepository _movieRepository;
         private readonly IRateRepository _ratingRepository;
+        private readonly IEnumerable<IRateMovieStrategy> _rateMovieStrategies;
 
-        public RateMovieCommandHandler(IUserRepository userRepository, IMovieRepository movieRepository, IRateRepository ratingRepository)
+        public RateMovieCommandHandler(IUserRepository userRepository, IMovieRepository movieRepository, IRateRepository ratingRepository, IEnumerable<IRateMovieStrategy> rateMovieStrategies)
         {
             _userRepository = userRepository;
             _movieRepository = movieRepository;
             _ratingRepository = ratingRepository;
+            _rateMovieStrategies = rateMovieStrategies;
         }
 
         public async Task Handle(RateMovieCommand request, CancellationToken cancellationToken)
@@ -35,19 +38,10 @@ namespace MoviesRating.Application.Commands.Handlers
             {
                 throw new MovieDoesNotExistException();
             }
-            var rate= await _ratingRepository.GetAsync(request.UserId, request.MovieId, cancellationToken);
-            if(rate==null)
-            {
-                rate=new Rate(request.Id, request.Value, user, movie);
-                await _ratingRepository.AddAsync(rate, cancellationToken);
-            }
-            else
-            {
-                rate.UpdateValue(request.Value);
-                await _ratingRepository.UpdateAsync(rate, cancellationToken);
-            }
-
-
+            
+            var rateExists = await _ratingRepository.ExistsAsync(request.UserId, request.MovieId, cancellationToken);
+            var rateMovieStrategy = _rateMovieStrategies.Single(x => x.RateExists == rateExists);
+            await rateMovieStrategy.RateMovie(user, movie, request.Value);
         }
     }
 }

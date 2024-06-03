@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using MoviesRating.Application.Auth;
+using MoviesRating.Application.Strategies;
 using MoviesRating.Domain.Entities;
 namespace MoviesRating.Application
 {
@@ -12,6 +13,8 @@ namespace MoviesRating.Application
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assembly));
             services.AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddSingleton<IAuthenticator, Authenticator>();
+            services.AddScoped<IRateMovieStrategy, RateExistMovieStrategy>();
+            services.AddScoped<IRateMovieStrategy, RateNotExistMovieStrategy>();
 
             return services;
         }

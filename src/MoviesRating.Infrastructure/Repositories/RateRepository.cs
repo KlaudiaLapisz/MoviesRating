@@ -25,6 +25,11 @@ namespace MoviesRating.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
+        public async Task<bool> ExistsAsync(Guid userId, Guid movieId, CancellationToken cancellationToken = default)
+        {
+            return await _dbContext.Rates.AnyAsync(x => x.UserId == userId && x.MovieId == movieId, cancellationToken);
+        }
+
         public async Task<Rate> GetAsync(Guid userId, Guid movieId, CancellationToken cancellationToken = default)
         {
             return await _dbContext.Rates.SingleOrDefaultAsync(x => x.MovieId == movieId && x.UserId == userId, cancellationToken);

@@ -10,6 +10,7 @@ namespace MoviesRating.Domain.Repositories
     public interface IRateRepository
     {
         Task<Rate> GetAsync(Guid userId, Guid movieId, CancellationToken cancellationToken = default);
+        Task<bool> ExistsAsync(Guid userId, Guid movieId, CancellationToken cancellationToken = default);
         Task AddAsync(Rate rate, CancellationToken cancellationToken = default);
         Task UpdateAsync(Rate rate, CancellationToken cancellationToken = default);
     }
