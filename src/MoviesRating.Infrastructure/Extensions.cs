@@ -9,6 +9,7 @@ using Microsoft.OpenApi.Models;
 using MoviesRating.Domain.Repositories;
 using MoviesRating.Infrastructure.DAL;
 using MoviesRating.Infrastructure.Exceptions;
+using MoviesRating.Infrastructure.HostedServices;
 using MoviesRating.Infrastructure.Logging;
 using MoviesRating.Infrastructure.Repositories;
 using System.Text;
@@ -30,6 +31,7 @@ namespace MoviesRating.Infrastructure
             services.AddScoped<IMovieToWatchRepository, MovieToWatchRepository>();
             services.AddSingleton<ErrorHandlingMiddleware>();
             services.AddSingleton<LoggingMiddleware> ();
+            services.AddHostedService<DatabaseInitializer>();
             var assembly = typeof(Extensions).Assembly;
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assembly));
 
