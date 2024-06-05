@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -6,11 +7,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using MoviesRating.Application.Commands;
 using MoviesRating.Domain.Repositories;
 using MoviesRating.Infrastructure.DAL;
 using MoviesRating.Infrastructure.Exceptions;
 using MoviesRating.Infrastructure.HostedServices;
 using MoviesRating.Infrastructure.Logging;
+using MoviesRating.Infrastructure.Logging.Decorators;
 using MoviesRating.Infrastructure.Repositories;
 using System.Text;
 
@@ -32,6 +35,7 @@ namespace MoviesRating.Infrastructure
             services.AddSingleton<ErrorHandlingMiddleware>();
             services.AddSingleton<LoggingMiddleware> ();
             services.AddHostedService<DatabaseInitializer>();
+            services.Decorate<IRequestHandler<RateMovieCommand>, LoggingRateMovieCommandHandlerDecorator>();
             var assembly = typeof(Extensions).Assembly;
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assembly));
 
