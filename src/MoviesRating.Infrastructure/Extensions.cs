@@ -9,12 +9,14 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MoviesRating.Application.Commands;
 using MoviesRating.Domain.Repositories;
+using MoviesRating.Domain.Time;
 using MoviesRating.Infrastructure.DAL;
 using MoviesRating.Infrastructure.Exceptions;
 using MoviesRating.Infrastructure.HostedServices;
 using MoviesRating.Infrastructure.Logging;
 using MoviesRating.Infrastructure.Logging.Decorators;
 using MoviesRating.Infrastructure.Repositories;
+using MoviesRating.Infrastructure.Time;
 using System.Text;
 
 namespace MoviesRating.Infrastructure
@@ -32,6 +34,7 @@ namespace MoviesRating.Infrastructure
             services.AddScoped<IRateRepository, RateRepository>();
             services.AddScoped<IFavouriteMovieRepository, FavouriteMovieRepository>();
             services.AddScoped<IMovieToWatchRepository, MovieToWatchRepository>();
+            services.AddScoped<IClock, Clock>();
             services.AddSingleton<ErrorHandlingMiddleware>();
             services.AddSingleton<LoggingMiddleware> ();
             services.AddHostedService<DatabaseInitializer>();
