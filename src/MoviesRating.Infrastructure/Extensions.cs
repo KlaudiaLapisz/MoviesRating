@@ -17,6 +17,7 @@ using MoviesRating.Infrastructure.Logging;
 using MoviesRating.Infrastructure.Logging.Decorators;
 using MoviesRating.Infrastructure.Repositories;
 using MoviesRating.Infrastructure.Time;
+using MoviesRating.Infrastructure.UnitOfWorks;
 using System.Text;
 
 namespace MoviesRating.Infrastructure
@@ -34,6 +35,7 @@ namespace MoviesRating.Infrastructure
             services.AddScoped<IRateRepository, RateRepository>();
             services.AddScoped<IFavouriteMovieRepository, FavouriteMovieRepository>();
             services.AddScoped<IMovieToWatchRepository, MovieToWatchRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IClock, Clock>();
             services.AddSingleton<ErrorHandlingMiddleware>();
             services.AddSingleton<LoggingMiddleware> ();
