@@ -18,6 +18,7 @@ using MoviesRating.Infrastructure.Logging.Decorators;
 using MoviesRating.Infrastructure.Repositories;
 using MoviesRating.Infrastructure.Time;
 using MoviesRating.Infrastructure.UnitOfWorks;
+using MoviesRating.Infrastructure.UnitOfWorks.Decorators;
 using System.Text;
 
 namespace MoviesRating.Infrastructure
@@ -41,6 +42,7 @@ namespace MoviesRating.Infrastructure
             services.AddSingleton<LoggingMiddleware> ();
             services.AddHostedService<DatabaseInitializer>();
             services.Decorate<IRequestHandler<RateMovieCommand>, LoggingRateMovieCommandHandlerDecorator>();
+            services.TryDecorate(typeof(IRequestHandler<>), typeof(UnitOfWorkCommandHandlerDecorator<>));
             var assembly = typeof(Extensions).Assembly;
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assembly));
 
