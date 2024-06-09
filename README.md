@@ -5,7 +5,6 @@ Sample of Web API created with .NET 8 and SQL Server database.
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
-* [Setup](#setup)
 
 ## General info
 
@@ -22,5 +21,3 @@ Project is created with:
 * MediatR
 * Docker
 * xUnit
-
-## Setup
